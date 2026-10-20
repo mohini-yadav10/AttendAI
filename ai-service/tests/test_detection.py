@@ -55,3 +55,40 @@ async def test_mock_disclaimer_present(client):
     data = response.json()
     assert "mock_disclaimer" in data
     assert data["mock_disclaimer"] is not None
+
+@pytest.mark.asyncio
+async def test_analyze_engagement_endpoint(client):
+    payload = {
+        "student_id": 99,
+        "name": "Test Student",
+        "presence_duration": 45.0,
+        "movement_score": 0.8,
+        "speech_ratio": 0.3,
+        "inactivity_duration": 5.0,
+        "attendance_status": "present"
+    }
+    response = await client.post("/analyze-engagement", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert data["student_id"] == 99
+    assert 0.0 <= data["raw_engagement_score"] <= 1.0
+
+@pytest.mark.asyncio
+async def test_session_summary_endpoint(client):
+    response = await client.get("/session-summary")
+    assert response.status_code == 200
+    data = response.json()
+    assert "total_students_tracked" in data
+    assert "student_analytics" in data
+    assert "teaching_suggestions" in data
+
+@pytest.mark.asyncio
+async def test_simulate_session_endpoint(client):
+    payload = {"duration_seconds": 3, "num_students": 2}
+    response = await client.post("/simulate-session", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert "session_id" in data
+    assert "summary" in data

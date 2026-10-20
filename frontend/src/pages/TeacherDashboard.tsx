@@ -1,3 +1,4 @@
+import { GithubIcon } from '../components/GithubIcon';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -19,6 +20,7 @@ import {
   QrCode,
   Radio,
   Cpu,
+  ExternalLink,
 } from 'lucide-react';
 import {
   BarChart,
@@ -30,11 +32,13 @@ import {
   CartesianGrid,
 } from 'recharts';
 import { sessionApi } from '../services/api';
+import { MentorRubricModal } from '../components/MentorRubricModal';
 
 export const TeacherDashboard: React.FC = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [recentSessions, setRecentSessions] = useState<any[]>([]);
+  const [isRubricOpen, setIsRubricOpen] = useState(false);
 
   // Weekly attendance chart data
   const attendanceChartData = [
@@ -105,36 +109,50 @@ export const TeacherDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-pop-in">
-      {/* ── Modern Pine Green Hero Banner ── */}
-      <div className="relative overflow-hidden rounded-3xl bg-pine-700 p-7 sm:p-9 text-white shadow-xl">
-        {/* Subtle organic wavy line background matching uploaded screenshot card */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <svg viewBox="0 0 500 240" fill="none" className="w-full h-full">
-            <path d="M-50 180 C 120 100, 260 220, 550 120" stroke="white" strokeWidth="28" />
-            <path d="M-20 60 C 160 10, 280 180, 520 80" stroke="white" strokeWidth="18" />
-          </svg>
-        </div>
+      {/* ── Modern Onyx & Warm Gold Hero Banner ── */}
+      <div className="onyx-hero-gradient relative overflow-hidden rounded-3xl p-7 sm:p-9 text-white shadow-xl border border-zinc-800">
+        {/* Subtle decorative glowing elements */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-pine-100 mb-3 border border-white/20">
-              <Sparkles className="w-3.5 h-3.5 text-marigold-400" />
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 backdrop-blur-md text-xs font-bold text-amber-300 mb-3 border border-zinc-700/80">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>BioEnable Multimodal Attendance Center • Active</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight text-white">
               Welcome back, {user?.name || 'Dr. Sarah Mitchell'}
             </h1>
-            <p className="mt-2 text-pine-100 text-sm max-w-xl leading-relaxed">
+            <p className="mt-2 text-zinc-300 text-sm max-w-xl leading-relaxed">
               Multi-sensor face recognition, optical fingerprinting, and contactless RFID pass validation are online for lecture CS401.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <a
+              href="https://github.com/mohini-yadav10/AttendAI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-4 py-3.5 rounded-2xl font-bold text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 shadow-xs transition-all duration-200 text-xs uppercase tracking-wider cursor-pointer"
+            >
+              <GithubIcon className="w-4 h-4 text-amber-400" />
+              <span>GitHub</span>
+              <ExternalLink className="w-3 h-3 text-zinc-400" />
+            </a>
+
+            <button
+              onClick={() => setIsRubricOpen(true)}
+              className="inline-flex items-center space-x-2 px-4 py-3.5 rounded-2xl font-bold text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 transition-all duration-200 text-xs uppercase tracking-wider cursor-pointer backdrop-blur-xs"
+            >
+              <Award className="w-4 h-4" />
+              <span>Mentor Rubric</span>
+            </button>
+
             <Link
               to="/sessions/new-capture"
-              className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-2xl font-bold text-slate-900 bg-marigold-500 hover:bg-marigold-600 shadow-lg shadow-marigold-500/25 transition-all duration-200 hover:scale-105 active:scale-95 text-xs uppercase tracking-wider"
+              className="btn-amber inline-flex items-center space-x-2 px-6 py-3.5 rounded-2xl font-black text-white shadow-lg shadow-amber-500/25 transition-all duration-200 hover:scale-105 active:scale-95 text-xs uppercase tracking-wider"
             >
-              <Camera className="w-4 h-4 text-slate-900" />
+              <Camera className="w-4 h-4 text-white" />
               <span>Launch Multimodal Capture</span>
             </Link>
           </div>
@@ -353,6 +371,9 @@ export const TeacherDashboard: React.FC = () => {
           </table>
         </div>
       </div>
+
+      {/* Mentor Evaluation Rubric Modal */}
+      <MentorRubricModal isOpen={isRubricOpen} onClose={() => setIsRubricOpen(false)} />
     </div>
   );
 };

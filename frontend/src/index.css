@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --color-wine-dark: #4c0519;
-    --color-wine: #881337;
-    --color-wine-light: #9f1239;
+    --color-onyx-dark: #09090b;
+    --color-onyx: #18181b;
+    --color-onyx-light: #27272a;
     --color-amber: #f59e0b;
     --color-amber-dark: #d97706;
     --color-bg: #fafaf9;
@@ -22,31 +22,40 @@
   }
 
   body {
-    @apply bg-background text-slate-800 min-h-screen selection:bg-rose-900 selection:text-white;
     background-color: #fafaf9;
+    color: #18181b;
+    min-height: 100vh;
+  }
+
+  body ::selection {
+    background-color: #18181b;
+    color: #fef3c7;
   }
 
   *:focus-visible {
-    @apply outline-none ring-2 ring-amber-500 ring-offset-2;
+    outline: none;
+    box-shadow: 0 0 0 2px #f59e0b;
   }
 }
 
-/* ── Luxury Wine & Sunset Amber Gradient Classes ─────────── */
+/* ── Modern Onyx & Warm Gold Gradient Themes (No Red, No Blue, No Green) ── */
+.onyx-hero-gradient,
 .wine-hero-gradient {
-  background: linear-gradient(135deg, #4c0519 0%, #881337 55%, #9f1239 100%) !important;
+  background: linear-gradient(135deg, #09090b 0%, #18181b 55%, #27272a 100%) !important;
   color: #ffffff !important;
 }
 
+.onyx-smart-card,
 .wine-smart-card {
-  background: linear-gradient(145deg, #2e030c 0%, #5c0720 50%, #881337 100%) !important;
+  background: linear-gradient(145deg, #09090b 0%, #18181b 50%, #27272a 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 20px 35px -10px rgba(76, 5, 25, 0.45);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
 }
 
-.wine-badge {
-  background-color: #ffe4e6;
-  color: #881337;
-  border: 1px solid #fecdd3;
+.onyx-badge {
+  background-color: #f4f4f5;
+  color: #18181b;
+  border: 1px solid #e4e4e7;
 }
 
 .amber-badge {
@@ -61,7 +70,7 @@
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px -6px rgba(136, 19, 55, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
 }
 
 .card-pill-stat {
@@ -72,32 +81,35 @@
   filter: brightness(1.03);
 }
 
+.btn-onyx,
 .btn-wine {
-  background-color: #881337;
-  color: #ffffff;
+  background-color: #18181b !important;
+  color: #ffffff !important;
   font-weight: 700;
   border-radius: 1rem;
   transition: all 0.2s;
-  box-shadow: 0 4px 12px -2px rgba(136, 19, 55, 0.25);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.25);
 }
+.btn-onyx:hover,
 .btn-wine:hover {
-  background-color: #700f2b;
+  background-color: #27272a !important;
   transform: scale(1.02);
 }
+.btn-onyx:active,
 .btn-wine:active {
   transform: scale(0.97);
 }
 
 .btn-amber {
-  background-color: #f59e0b;
-  color: #ffffff;
+  background-color: #f59e0b !important;
+  color: #ffffff !important;
   font-weight: 800;
   border-radius: 1rem;
   transition: all 0.2s;
   box-shadow: 0 4px 14px -2px rgba(245, 158, 11, 0.35);
 }
 .btn-amber:hover {
-  background-color: #d97706;
+  background-color: #d97706 !important;
   transform: scale(1.02);
 }
 .btn-amber:active {
@@ -106,15 +118,15 @@
 
 .btn-soft {
   background-color: #ffffff;
-  color: #334155;
-  border: 1px solid #e2e8f0;
+  color: #18181b;
+  border: 1px solid #e4e4e7;
   font-weight: 600;
   border-radius: 1rem;
   transition: all 0.2s;
 }
 .btn-soft:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
+  background-color: #f4f4f5;
+  border-color: #d4d4d8;
 }
 
 /* Biometric scan laser line */

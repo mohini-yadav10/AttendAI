@@ -48,6 +48,8 @@ build/
 .eggs/
 .venv/
 venv/
+reports/
+ai-service/reports/
 env/
 ENV/
 .Python

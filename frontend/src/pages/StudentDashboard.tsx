@@ -1,3 +1,4 @@
+import { GithubIcon } from '../components/GithubIcon';
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -22,8 +23,10 @@ import {
   X,
   Radio,
   BookOpen,
+  ExternalLink,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { MentorRubricModal } from '../components/MentorRubricModal';
 
 export const StudentDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -41,6 +44,7 @@ export const StudentDashboard: React.FC = () => {
   const [isBiometricModalOpen, setIsBiometricModalOpen] = useState(false);
   const [selectedSensor, setSelectedSensor] = useState<'rfid' | 'face' | 'fingerprint'>('face');
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isRubricOpen, setIsRubricOpen] = useState(false);
 
   // Student Courses Data
   const [courses] = useState([
@@ -166,24 +170,24 @@ export const StudentDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in pb-12">
-      {/* ── Top Hero Banner (Rich Wine & Amber Gradient) ── */}
-      <div className="wine-hero-gradient relative overflow-hidden rounded-3xl p-7 sm:p-9 shadow-xl border border-rose-950/40">
-        {/* Subtle decorative glowing spheres */}
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-400/20 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 -mb-20 w-72 h-72 rounded-full bg-rose-600/25 blur-3xl pointer-events-none" />
+      {/* ── Top Hero Banner (Modern Onyx & Warm Gold Gradient) ── */}
+      <div className="onyx-hero-gradient relative overflow-hidden rounded-3xl p-7 sm:p-9 shadow-2xl border border-zinc-800">
+        {/* Subtle decorative glowing gold & charcoal spheres */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-20 w-72 h-72 rounded-full bg-zinc-700/25 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-xs font-black uppercase tracking-wider backdrop-blur-xs shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-black uppercase tracking-wider backdrop-blur-xs shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>BioEnable Multimodal Student Portal</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-sm">
               Welcome back, {user?.name || 'Alex Johnson'}!
             </h1>
-            <p className="text-sm text-rose-100 font-medium max-w-2xl leading-relaxed">
+            <p className="text-sm text-zinc-300 font-medium max-w-2xl leading-relaxed">
               Enrolled in Computer Science & Artificial Intelligence • Student ID:{' '}
-              <span className="font-mono text-amber-300 font-extrabold px-1.5 py-0.5 rounded-md bg-black/20">
+              <span className="font-mono text-amber-400 font-black px-2 py-0.5 rounded-md bg-zinc-900 border border-zinc-700">
                 STU-2026-8829
               </span>{' '}
               • Semester VI
@@ -191,6 +195,25 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="https://github.com/mohini-yadav10/AttendAI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-4 py-3 rounded-2xl bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-700 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shadow-xs"
+            >
+              <GithubIcon className="w-4 h-4 text-amber-400" />
+              <span>GitHub</span>
+              <ExternalLink className="w-3 h-3 text-zinc-400" />
+            </a>
+
+            <button
+              onClick={() => setIsRubricOpen(true)}
+              className="inline-flex items-center space-x-2 px-4 py-3 rounded-2xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-xs"
+            >
+              <Award className="w-4 h-4" />
+              <span>Mentor Rubric</span>
+            </button>
+
             <button
               onClick={() => setIsBiometricModalOpen(true)}
               className="btn-amber inline-flex items-center space-x-2 px-5 py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider cursor-pointer"
@@ -200,7 +223,7 @@ export const StudentDashboard: React.FC = () => {
             </button>
             <button
               onClick={() => setIsLeaveModalOpen(true)}
-              className="inline-flex items-center space-x-2 px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-xs"
+              className="inline-flex items-center space-x-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-xs"
             >
               <FileText className="w-4 h-4 text-white" />
               <span>Request Leave</span>
@@ -209,22 +232,22 @@ export const StudentDashboard: React.FC = () => {
         </div>
 
         {/* Status bar pills with high contrast */}
-        <div className="relative z-10 mt-7 pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-white">
+        <div className="relative z-10 mt-7 pt-5 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-white">
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
+            <div className="flex items-center space-x-2 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-zinc-700/80">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-              <span>RFID Smart Pass: Active</span>
+              <span className="text-zinc-200">RFID Smart Pass: Active</span>
             </div>
-            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
+            <div className="flex items-center space-x-2 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-zinc-700/80">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span>Facial Token: 3D Enrolled</span>
+              <span className="text-zinc-200">Facial Token: 3D Enrolled</span>
             </div>
-            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
+            <div className="flex items-center space-x-2 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-zinc-700/80">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span>Optical Fingerprint: Verified</span>
+              <span className="text-zinc-200">Optical Fingerprint: Verified</span>
             </div>
           </div>
-          <div className="text-amber-200 font-mono text-xs bg-black/30 px-3.5 py-1.5 rounded-full border border-amber-400/30">
+          <div className="text-amber-400 font-mono text-xs bg-zinc-900/90 px-4 py-1.5 rounded-full border border-amber-500/40 font-bold">
             Term Attendance: <span className="text-white font-black">{overallRate}%</span> (Min Req: 75%)
           </div>
         </div>
@@ -233,36 +256,36 @@ export const StudentDashboard: React.FC = () => {
       {/* ── 4 Key Performance Cards (Full-width grid) ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Card 1: Attendance Rate */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300">
+        <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-card hover:shadow-card-hover transition-all duration-300">
           <div className="flex items-center justify-between pb-3">
-            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
               Overall Rate
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-rose-50 text-rose-900 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-2xl bg-zinc-100 text-zinc-900 flex items-center justify-center font-bold">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
-            <h3 className="text-3xl font-black text-slate-900 font-mono">{overallRate}%</h3>
-            <span className="text-xs font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-300">
+            <h3 className="text-3xl font-black text-zinc-900 font-mono">{overallRate}%</h3>
+            <span className="text-xs font-extrabold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-md border border-amber-300">
               On Track
             </span>
           </div>
-          <div className="mt-3 w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+          <div className="mt-3 w-full bg-zinc-100 h-2.5 rounded-full overflow-hidden">
             <div
-              className="bg-gradient-to-r from-rose-900 to-amber-500 h-full rounded-full transition-all duration-500"
+              className="bg-gradient-to-r from-zinc-900 via-zinc-800 to-amber-500 h-full rounded-full transition-all duration-500"
               style={{ width: `${overallRate}%` }}
             />
           </div>
-          <p className="text-[11px] font-semibold text-slate-400 mt-2">
+          <p className="text-[11px] font-semibold text-zinc-400 mt-2">
             {totalAttended} of {totalSessions} total sessions attended
           </p>
         </div>
 
         {/* Card 2: Biometric Credentials */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300">
+        <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-card hover:shadow-card-hover transition-all duration-300">
           <div className="flex items-center justify-between pb-3">
-            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
               Smart Pass ID
             </span>
             <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
@@ -270,49 +293,49 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
-            <h3 className="text-2xl font-black text-slate-900 font-mono">8829-AF</h3>
-            <span className="text-xs font-extrabold text-rose-900 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+            <h3 className="text-2xl font-black text-zinc-900 font-mono">8829-AF</h3>
+            <span className="text-xs font-extrabold text-zinc-800 bg-zinc-100 px-2 py-0.5 rounded-md border border-zinc-300">
               NFC Tap
             </span>
           </div>
-          <p className="text-xs font-bold text-slate-700 mt-3 flex items-center space-x-1.5">
+          <p className="text-xs font-bold text-zinc-700 mt-3 flex items-center space-x-1.5">
             <ShieldCheck className="w-4 h-4 text-amber-600" />
             <span>Multi-Factor Biometrics Active</span>
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">
+          <p className="text-[11px] font-semibold text-zinc-400 mt-1">
             Expires: Aug 2030 • Encrypted Token
           </p>
         </div>
 
         {/* Card 3: Excused Leaves */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300">
+        <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-card hover:shadow-card-hover transition-all duration-300">
           <div className="flex items-center justify-between pb-3">
-            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
               Leaves & Absences
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-rose-50 text-rose-900 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-2xl bg-zinc-100 text-zinc-900 flex items-center justify-center">
               <Calendar className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
-            <h3 className="text-3xl font-black text-slate-900 font-mono">
+            <h3 className="text-3xl font-black text-zinc-900 font-mono">
               {totalSessions - totalAttended}
             </h3>
-            <span className="text-xs font-semibold text-slate-400">sessions total</span>
+            <span className="text-xs font-semibold text-zinc-400">sessions total</span>
           </div>
-          <p className="text-xs font-bold text-slate-700 mt-3 flex items-center space-x-1.5">
+          <p className="text-xs font-bold text-zinc-700 mt-3 flex items-center space-x-1.5">
             <CheckCircle2 className="w-4 h-4 text-amber-600" />
             <span>2 Medical Excused • 1 Unexcused</span>
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">
+          <p className="text-[11px] font-semibold text-zinc-400 mt-1">
             Permitted leaves remaining: 4
           </p>
         </div>
 
         {/* Card 4: Academic Standing */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300">
+        <div className="bg-white rounded-3xl p-5 border border-zinc-200 shadow-card hover:shadow-card-hover transition-all duration-300">
           <div className="flex items-center justify-between pb-3">
-            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
               Examination Eligibility
             </span>
             <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
@@ -321,15 +344,15 @@ export const StudentDashboard: React.FC = () => {
           </div>
           <div className="flex items-baseline space-x-2">
             <h3 className="text-2xl font-black text-amber-700 font-mono">Eligible</h3>
-            <span className="text-xs font-bold text-rose-900 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+            <span className="text-xs font-bold text-zinc-800 bg-zinc-100 px-2 py-0.5 rounded-md border border-zinc-300">
               Clear
             </span>
           </div>
-          <p className="text-xs font-bold text-slate-700 mt-3 flex items-center space-x-1.5">
+          <p className="text-xs font-bold text-zinc-700 mt-3 flex items-center space-x-1.5">
             <Sparkles className="w-4 h-4 text-amber-600" />
             <span>Honor Roll Standing</span>
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">
+          <p className="text-[11px] font-semibold text-zinc-400 mt-1">
             Threshold: 75.0% • Buffer: +19.8%
           </p>
         </div>
@@ -340,18 +363,18 @@ export const StudentDashboard: React.FC = () => {
         {/* Left Column (8 cols): Enrolled Courses + Simulator + Attendance Log */}
         <div className="lg:col-span-8 space-y-8">
           {/* Section 1: Enrolled Courses & Attendance Breakdown */}
-          <div id="courses" className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-100">
+          <div id="courses" className="bg-white rounded-3xl p-6 sm:p-7 border border-zinc-200 shadow-card">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-zinc-100">
               <div>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center space-x-2">
-                  <BookOpen className="w-5 h-5 text-rose-900" />
+                <h2 className="text-lg font-black text-zinc-900 tracking-tight flex items-center space-x-2">
+                  <BookOpen className="w-5 h-5 text-zinc-900" />
                   <span>Enrolled Course Modules</span>
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-zinc-500 mt-0.5">
                   Real-time biometric attendance tracking across all active courses
                 </p>
               </div>
-              <span className="self-start sm:self-auto text-xs font-extrabold px-3 py-1 rounded-xl bg-rose-50 text-rose-900 border border-rose-200">
+              <span className="self-start sm:self-auto text-xs font-extrabold px-3 py-1 rounded-xl bg-zinc-100 text-zinc-800 border border-zinc-200">
                 4 Active Courses
               </span>
             </div>
@@ -360,18 +383,18 @@ export const StudentDashboard: React.FC = () => {
               {courses.map((course) => (
                 <div
                   key={course.code}
-                  className="p-4 sm:p-5 rounded-2xl border border-slate-200/70 bg-slate-50/50 hover:bg-white hover:border-rose-300 hover:shadow-card transition-all duration-200"
+                  className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-zinc-50/50 hover:bg-white hover:border-zinc-400 hover:shadow-card transition-all duration-200"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-xl bg-rose-900 text-white font-mono font-black text-xs flex items-center justify-center shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-mono font-black text-xs flex items-center justify-center shadow-xs">
                         {course.code}
                       </div>
                       <div>
-                        <h3 className="font-extrabold text-sm text-slate-900 leading-snug">
+                        <h3 className="font-extrabold text-sm text-zinc-900 leading-snug">
                           {course.name}
                         </h3>
-                        <p className="text-xs text-slate-500 font-medium">
+                        <p className="text-xs text-zinc-500 font-medium">
                           {course.instructor} • {course.schedule} • {course.room}
                         </p>
                       </div>
@@ -379,10 +402,10 @@ export const StudentDashboard: React.FC = () => {
 
                     <div className="flex items-center space-x-4 self-end sm:self-auto">
                       <div className="text-right">
-                        <span className="text-lg font-black font-mono text-slate-900">
+                        <span className="text-lg font-black font-mono text-zinc-900">
                           {course.rate.toFixed(1)}%
                         </span>
-                        <p className="text-[11px] font-semibold text-slate-400">
+                        <p className="text-[11px] font-semibold text-zinc-400">
                           {course.attended}/{course.total} classes
                         </p>
                       </div>
@@ -393,9 +416,9 @@ export const StudentDashboard: React.FC = () => {
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="mt-3 w-full bg-slate-200/70 h-2 rounded-full overflow-hidden">
+                  <div className="mt-3 w-full bg-zinc-200 h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-rose-900 to-amber-500 h-full rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-zinc-900 via-zinc-800 to-amber-500 h-full rounded-full transition-all duration-300"
                       style={{ width: `${course.rate}%` }}
                     />
                   </div>
@@ -405,20 +428,20 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Section 2: Multimodal Verification Activity Log */}
-          <div id="logs" className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
-            <div className="flex items-center justify-between pb-5 border-b border-slate-100">
+          <div id="logs" className="bg-white rounded-3xl p-6 sm:p-7 border border-zinc-200 shadow-card">
+            <div className="flex items-center justify-between pb-5 border-b border-zinc-100">
               <div>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center space-x-2">
-                  <Fingerprint className="w-5 h-5 text-rose-900" />
+                <h2 className="text-lg font-black text-zinc-900 tracking-tight flex items-center space-x-2">
+                  <Fingerprint className="w-5 h-5 text-zinc-900" />
                   <span>Biometric Access & Verification Log</span>
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-zinc-500 mt-0.5">
                   Live multimodal authentication events from classroom sensors
                 </p>
               </div>
               <button
                 onClick={() => toast.success('Telemetry log refreshed')}
-                className="text-xs font-bold text-rose-900 hover:text-rose-950 hover:underline cursor-pointer"
+                className="text-xs font-bold text-zinc-900 hover:text-amber-700 hover:underline cursor-pointer"
               >
                 Refresh Log
               </button>
@@ -427,7 +450,7 @@ export const StudentDashboard: React.FC = () => {
             <div className="mt-5 overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-100 text-[11px] font-extrabold uppercase text-slate-400">
+                  <tr className="border-b border-zinc-100 text-[11px] font-extrabold uppercase text-zinc-400">
                     <th className="py-2.5 px-3">Timestamp</th>
                     <th className="py-2.5 px-3">Course / Session</th>
                     <th className="py-2.5 px-3">Method</th>
@@ -435,26 +458,26 @@ export const StudentDashboard: React.FC = () => {
                     <th className="py-2.5 px-3 text-right">Confidence</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-xs">
+                <tbody className="divide-y divide-zinc-100 text-xs">
                   {recentLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-3 font-semibold text-slate-600 whitespace-nowrap">
+                    <tr key={log.id} className="hover:bg-zinc-50/80 transition-colors">
+                      <td className="py-3 px-3 font-semibold text-zinc-600 whitespace-nowrap">
                         {log.time}
                       </td>
-                      <td className="py-3 px-3 font-bold text-slate-900">{log.course}</td>
+                      <td className="py-3 px-3 font-bold text-zinc-900">{log.course}</td>
                       <td className="py-3 px-3">
-                        <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-900 font-bold border border-rose-200">
+                        <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-900 font-bold border border-zinc-200">
                           {log.method === 'Facial Recognition' ? (
-                            <Camera className="w-3.5 h-3.5 text-rose-800" />
+                            <Camera className="w-3.5 h-3.5 text-zinc-800" />
                           ) : log.method === 'RFID Smart Tap' ? (
-                            <CreditCard className="w-3.5 h-3.5 text-rose-800" />
+                            <CreditCard className="w-3.5 h-3.5 text-zinc-800" />
                           ) : (
-                            <Fingerprint className="w-3.5 h-3.5 text-rose-800" />
+                            <Fingerprint className="w-3.5 h-3.5 text-zinc-800" />
                           )}
                           <span>{log.method}</span>
                         </span>
                       </td>
-                      <td className="py-3 px-3 text-slate-500 font-mono text-[11px]">
+                      <td className="py-3 px-3 text-zinc-500 font-mono text-[11px]">
                         {log.terminal}
                       </td>
                       <td className="py-3 px-3 text-right font-mono font-black text-amber-700">
@@ -468,16 +491,16 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Section 3: Smart Attendance Predictor & Target Simulator */}
-          <div className="bg-gradient-to-br from-white to-amber-50/50 rounded-3xl p-6 sm:p-7 border border-amber-200/80 shadow-card">
+          <div className="bg-gradient-to-br from-white to-amber-50/50 rounded-3xl p-6 sm:p-7 border border-amber-200 shadow-card">
             <div className="flex items-center space-x-3 pb-4 border-b border-amber-200/50">
               <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/20">
                 <Calculator className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-black text-slate-900">
+                <h3 className="text-base font-black text-zinc-900">
                   Attendance Predictor & Safe-Leave Simulator
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-zinc-500">
                   Simulate your future attendance rate before missing any class or taking leave
                 </p>
               </div>
@@ -486,7 +509,7 @@ export const StudentDashboard: React.FC = () => {
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div className="space-y-4">
                 <div>
-                  <label className="text-xs font-extrabold text-slate-700 block mb-1.5 uppercase tracking-wider">
+                  <label className="text-xs font-extrabold text-zinc-700 block mb-1.5 uppercase tracking-wider">
                     If I miss upcoming classes:
                   </label>
                   <div className="flex items-center space-x-2">
@@ -497,8 +520,8 @@ export const StudentDashboard: React.FC = () => {
                         onClick={() => setClassesToMiss(num)}
                         className={`w-10 h-10 rounded-xl font-black text-sm transition-all cursor-pointer ${
                           classesToMiss === num
-                            ? 'bg-rose-900 text-white shadow-md shadow-rose-900/25 scale-105'
-                            : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                            ? 'bg-zinc-900 text-white shadow-md shadow-zinc-900/25 scale-105'
+                            : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
                         }`}
                       >
                         {num}
@@ -507,11 +530,11 @@ export const StudentDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-zinc-600 leading-relaxed">
                   Anticipating {classesToMiss} absence(s) across your registered courses will adjust
                   your overall attendance from{' '}
-                  <span className="font-bold text-slate-900">{overallRate}%</span> to{' '}
-                  <span className="font-black text-rose-900">{predictedRate}%</span>.
+                  <span className="font-bold text-zinc-900">{overallRate}%</span> to{' '}
+                  <span className="font-black text-zinc-900">{predictedRate}%</span>.
                 </p>
               </div>
 
@@ -522,11 +545,11 @@ export const StudentDashboard: React.FC = () => {
                     Simulated Projected Attendance
                   </span>
                   <div className="flex items-baseline space-x-2 mt-1">
-                    <h4 className="text-3xl font-black font-mono text-slate-900">
+                    <h4 className="text-3xl font-black font-mono text-zinc-900">
                       {predictedRate}%
                     </h4>
                     <span
-                      className={`text-xs font-bold px-2 py-0.5 rounded-md ${
+                      className={`text-xs font-bold px-2.5 py-0.5 rounded-md ${
                         Number(predictedRate) >= 75
                           ? 'bg-amber-100 text-amber-900'
                           : 'bg-rose-100 text-rose-800'
@@ -537,9 +560,9 @@ export const StudentDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+                <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-semibold text-zinc-500">
                   <span>Threshold Requirement</span>
-                  <span className="font-mono font-bold text-slate-800">75.0%</span>
+                  <span className="font-mono font-bold text-zinc-800">75.0%</span>
                 </div>
               </div>
             </div>
@@ -551,7 +574,7 @@ export const StudentDashboard: React.FC = () => {
           {/* ── Visual Biometric Student Smart Pass (RFID / NFC Digital Pass) ── */}
           <div id="pass" className="space-y-3">
             <div className="flex items-center justify-between px-1">
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-700">
+              <h3 className="text-sm font-black uppercase tracking-wider text-zinc-700">
                 Digital Biometric Pass
               </h3>
               <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
@@ -560,26 +583,26 @@ export const StudentDashboard: React.FC = () => {
             </div>
 
             {/* Smart Pass Card Container */}
-            <div className="wine-smart-card relative overflow-hidden rounded-3xl text-white p-6 shadow-2xl border border-rose-950/60">
+            <div className="onyx-smart-card relative overflow-hidden rounded-3xl text-white p-6 shadow-2xl border border-zinc-800">
               {/* Card visual elements */}
-              <div className="absolute top-0 right-0 -mr-10 -mt-10 w-44 h-44 rounded-full bg-amber-400/20 blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 -mr-10 -mt-10 w-44 h-44 rounded-full bg-amber-400/15 blur-2xl pointer-events-none" />
 
               {/* Card Header */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-300 text-rose-950 font-black flex items-center justify-center text-xs shadow-md">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-300 text-zinc-950 font-black flex items-center justify-center text-xs shadow-md">
                     AI
                   </div>
                   <div>
                     <h4 className="text-xs font-black tracking-wider uppercase text-white">
                       AttendAI Student Pass
                     </h4>
-                    <p className="text-[9px] text-amber-200 font-bold uppercase tracking-widest">
+                    <p className="text-[9px] text-amber-300 font-bold uppercase tracking-widest">
                       BioEnable Fusion
                     </p>
                   </div>
                 </div>
-                <Radio className="w-5 h-5 text-amber-300 animate-pulse" />
+                <Radio className="w-5 h-5 text-amber-400 animate-pulse" />
               </div>
 
               {/* Chip & NFC symbol */}
@@ -588,7 +611,7 @@ export const StudentDashboard: React.FC = () => {
                   <div className="w-7 h-5 border border-amber-700/40 rounded-xs" />
                 </div>
                 <div className="text-right">
-                  <span className="text-[9px] font-mono uppercase text-amber-200 font-black tracking-widest">
+                  <span className="text-[9px] font-mono uppercase text-amber-300 font-black tracking-widest">
                     NFC VERIFIED
                   </span>
                 </div>
@@ -596,7 +619,7 @@ export const StudentDashboard: React.FC = () => {
 
               {/* Student Details on Card */}
               <div className="mt-6">
-                <p className="text-[10px] text-rose-200 font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
                   Student Holder
                 </p>
                 <h5 className="text-lg font-black tracking-wide text-white">
@@ -608,16 +631,16 @@ export const StudentDashboard: React.FC = () => {
               </div>
 
               {/* Expiration and Status footer */}
-              <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between text-[11px] font-mono text-rose-100">
+              <div className="mt-6 pt-4 border-t border-zinc-800 flex items-center justify-between text-[11px] font-mono text-zinc-300">
                 <div>
-                  <span className="text-[9px] block text-rose-300 font-sans uppercase font-bold">
+                  <span className="text-[9px] block text-zinc-500 font-sans uppercase font-bold">
                     Validity
                   </span>
                   <span>EXP: 08/2030</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[9px] block text-rose-300 font-sans uppercase font-bold">Status</span>
-                  <span className="text-amber-300 font-black uppercase">Active</span>
+                  <span className="text-[9px] block text-zinc-500 font-sans uppercase font-bold">Status</span>
+                  <span className="text-amber-400 font-black uppercase">Active</span>
                 </div>
               </div>
             </div>
@@ -626,7 +649,7 @@ export const StudentDashboard: React.FC = () => {
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
                 onClick={() => setIsBiometricModalOpen(true)}
-                className="py-2.5 px-3 rounded-2xl bg-white border border-slate-200 text-slate-800 hover:text-rose-900 hover:border-rose-300 font-bold text-xs transition-all text-center cursor-pointer shadow-xs"
+                className="py-2.5 px-3 rounded-2xl bg-white border border-zinc-200 text-zinc-800 hover:text-zinc-950 hover:border-zinc-400 font-bold text-xs transition-all text-center cursor-pointer shadow-xs"
               >
                 Sync Biometrics
               </button>
@@ -634,7 +657,7 @@ export const StudentDashboard: React.FC = () => {
                 onClick={() =>
                   toast.success('Official Attendance Certificate downloaded as PDF!')
                 }
-                className="btn-wine py-2.5 px-3 rounded-2xl text-white font-bold text-xs transition-all text-center cursor-pointer"
+                className="btn-onyx py-2.5 px-3 rounded-2xl text-white font-bold text-xs transition-all text-center cursor-pointer"
               >
                 Export Pass
               </button>
@@ -642,21 +665,21 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Multimodal Hardware Status Widget */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-4">
-            <h3 className="text-sm font-black text-slate-900 tracking-tight flex items-center space-x-2">
-              <ShieldCheck className="w-4 h-4 text-rose-900" />
+          <div className="bg-white rounded-3xl p-6 border border-zinc-200 shadow-card space-y-4">
+            <h3 className="text-sm font-black text-zinc-900 tracking-tight flex items-center space-x-2">
+              <ShieldCheck className="w-4 h-4 text-zinc-900" />
               <span>Registered Authentication Modes</span>
             </h3>
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-xl bg-zinc-200 text-zinc-900 flex items-center justify-center font-bold">
                     <Camera className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-900">3D Face Mesh</p>
-                    <p className="text-[10px] text-slate-400 font-medium">128-d Vector Template</p>
+                    <p className="text-xs font-bold text-zinc-900">3D Face Mesh</p>
+                    <p className="text-[10px] text-zinc-400 font-medium">128-d Vector Template</p>
                   </div>
                 </div>
                 <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
@@ -664,14 +687,14 @@ export const StudentDashboard: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
                     <Fingerprint className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-900">Optical Fingerprint</p>
-                    <p className="text-[10px] text-slate-400 font-medium">Minutiae Map v2</p>
+                    <p className="text-xs font-bold text-zinc-900">Optical Fingerprint</p>
+                    <p className="text-[10px] text-zinc-400 font-medium">Minutiae Map v2</p>
                   </div>
                 </div>
                 <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
@@ -679,14 +702,14 @@ export const StudentDashboard: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-xl bg-zinc-200 text-zinc-900 flex items-center justify-center font-bold">
                     <CreditCard className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-900">MIFARE Smart RFID</p>
-                    <p className="text-[10px] text-slate-400 font-medium">13.56 MHz High-Freq</p>
+                    <p className="text-xs font-bold text-zinc-900">MIFARE Smart RFID</p>
+                    <p className="text-[10px] text-zinc-400 font-medium">13.56 MHz High-Freq</p>
                   </div>
                 </div>
                 <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
@@ -697,20 +720,20 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Department Announcements Card */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-3">
-            <h3 className="text-sm font-black text-slate-900 tracking-tight">
+          <div className="bg-white rounded-3xl p-6 border border-zinc-200 shadow-card space-y-3">
+            <h3 className="text-sm font-black text-zinc-900 tracking-tight">
               Class Announcements
             </h3>
             <div className="space-y-2.5 text-xs">
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+              <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
                 <span className="text-[10px] font-bold text-amber-800 block">Today • Dr. Sarah Mitchell</span>
-                <p className="text-slate-800 font-semibold mt-0.5">
+                <p className="text-zinc-800 font-semibold mt-0.5">
                   Final Software Architecture review session will record attendance via multimodal gate.
                 </p>
               </div>
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-500 block">Yesterday • Academic Affairs</span>
-                <p className="text-slate-800 font-semibold mt-0.5">
+              <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
+                <span className="text-[10px] font-bold text-zinc-500 block">Yesterday • Academic Affairs</span>
+                <p className="text-zinc-800 font-semibold mt-0.5">
                   Semester attendance cutoff is approaching. Submit pending medical slips by Friday.
                 </p>
               </div>
@@ -721,21 +744,21 @@ export const StudentDashboard: React.FC = () => {
 
       {/* ── Modal: Leave Application Form ── */}
       {isLeaveModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 animate-pop-in">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-zinc-200 animate-pop-in">
+            <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-2xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-2xl bg-zinc-100 text-zinc-900 flex items-center justify-center font-bold">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-slate-900">Request Leave of Absence</h3>
-                  <p className="text-xs text-slate-500">Official leave notification for instructors</p>
+                  <h3 className="text-base font-black text-zinc-900">Request Leave of Absence</h3>
+                  <p className="text-xs text-zinc-500">Official leave notification for instructors</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsLeaveModalOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
+                className="p-1 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -743,13 +766,13 @@ export const StudentDashboard: React.FC = () => {
 
             <form onSubmit={handleLeaveSubmit} className="mt-5 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase">
+                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase">
                   Select Course / Session
                 </label>
                 <select
                   value={leaveSubject}
                   onChange={(e) => setLeaveSubject(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
+                  className="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-zinc-800"
                 >
                   {courses.map((c) => (
                     <option key={c.code} value={c.name}>
@@ -761,19 +784,19 @@ export const StudentDashboard: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase">
+                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase">
                   Leave Date
                 </label>
                 <input
                   type="date"
                   value={leaveDate}
                   onChange={(e) => setLeaveDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
+                  className="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-zinc-800"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase">
+                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase">
                   Reason for Absence
                 </label>
                 <textarea
@@ -781,21 +804,21 @@ export const StudentDashboard: React.FC = () => {
                   value={leaveReason}
                   onChange={(e) => setLeaveReason(e.target.value)}
                   placeholder="e.g. Medical appointment, university event, or bereavement..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
+                  className="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-zinc-800"
                 />
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-100">
+              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-zinc-100">
                 <button
                   type="button"
                   onClick={() => setIsLeaveModalOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
+                  className="px-4 py-2.5 rounded-2xl border border-zinc-200 text-xs font-bold text-zinc-600 hover:bg-zinc-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn-wine px-5 py-2.5 rounded-2xl text-white text-xs font-black active:scale-95 cursor-pointer"
+                  className="btn-onyx px-5 py-2.5 rounded-2xl text-white text-xs font-black active:scale-95 cursor-pointer"
                 >
                   Submit Leave Request
                 </button>
@@ -807,21 +830,21 @@ export const StudentDashboard: React.FC = () => {
 
       {/* ── Modal: Biometric Sensor Verification Test ── */}
       {isBiometricModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200 animate-pop-in">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-zinc-200 animate-pop-in">
+            <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
               <div className="flex items-center space-x-2.5">
                 <div className="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
                   <Fingerprint className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-slate-900">Biometric Verification Test</h3>
-                  <p className="text-xs text-slate-500">Test live terminal sensor authentication</p>
+                  <h3 className="text-base font-black text-zinc-900">Biometric Verification Test</h3>
+                  <p className="text-xs text-zinc-500">Test live terminal sensor authentication</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsBiometricModalOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
+                className="p-1 rounded-xl text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -834,8 +857,8 @@ export const StudentDashboard: React.FC = () => {
                   onClick={() => setSelectedSensor('face')}
                   className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'face'
-                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-600'
+                      ? 'border-zinc-900 bg-zinc-100 text-zinc-950 shadow-2xs font-bold'
+                      : 'border-zinc-200 hover:bg-zinc-50 text-zinc-600'
                   }`}
                 >
                   <Camera className="w-5 h-5" />
@@ -847,8 +870,8 @@ export const StudentDashboard: React.FC = () => {
                   onClick={() => setSelectedSensor('fingerprint')}
                   className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'fingerprint'
-                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-600'
+                      ? 'border-zinc-900 bg-zinc-100 text-zinc-950 shadow-2xs font-bold'
+                      : 'border-zinc-200 hover:bg-zinc-50 text-zinc-600'
                   }`}
                 >
                   <Fingerprint className="w-5 h-5" />
@@ -860,8 +883,8 @@ export const StudentDashboard: React.FC = () => {
                   onClick={() => setSelectedSensor('rfid')}
                   className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'rfid'
-                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-600'
+                      ? 'border-zinc-900 bg-zinc-100 text-zinc-950 shadow-2xs font-bold'
+                      : 'border-zinc-200 hover:bg-zinc-50 text-zinc-600'
                   }`}
                 >
                   <CreditCard className="w-5 h-5" />
@@ -870,12 +893,12 @@ export const StudentDashboard: React.FC = () => {
               </div>
 
               {/* Sensor graphic animation */}
-              <div className="p-8 rounded-2xl bg-slate-900 text-white flex flex-col items-center justify-center space-y-3 text-center">
+              <div className="p-8 rounded-2xl bg-zinc-950 text-white flex flex-col items-center justify-center space-y-3 text-center border border-zinc-800">
                 <div className="relative">
                   {isAuthenticating && (
                     <div className="absolute inset-0 rounded-full bg-amber-500 animate-ping opacity-40" />
                   )}
-                  <div className="w-16 h-16 rounded-full bg-slate-800 border-2 border-amber-400 flex items-center justify-center text-amber-400 shadow-lg">
+                  <div className="w-16 h-16 rounded-full bg-zinc-900 border-2 border-amber-400 flex items-center justify-center text-amber-400 shadow-lg">
                     {selectedSensor === 'face' ? (
                       <Camera className="w-7 h-7" />
                     ) : selectedSensor === 'fingerprint' ? (
@@ -885,7 +908,7 @@ export const StudentDashboard: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <p className="text-xs font-semibold text-slate-300">
+                <p className="text-xs font-semibold text-zinc-300">
                   {isAuthenticating
                     ? 'Capturing sensor telemetry & cryptographic signing...'
                     : `Ready to scan ${
@@ -902,7 +925,7 @@ export const StudentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsBiometricModalOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
+                  className="px-4 py-2.5 rounded-2xl border border-zinc-200 text-xs font-bold text-zinc-600 hover:bg-zinc-50 cursor-pointer"
                 >
                   Close
                 </button>
@@ -919,6 +942,9 @@ export const StudentDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Mentor Rubric Evaluation Modal */}
+      <MentorRubricModal isOpen={isRubricOpen} onClose={() => setIsRubricOpen(false)} />
     </div>
   );
 };

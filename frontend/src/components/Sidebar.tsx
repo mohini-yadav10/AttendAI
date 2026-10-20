@@ -60,24 +60,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-rose-950/60 backdrop-blur-xs lg:hidden animate-fade-in"
+          className="fixed inset-0 z-40 bg-zinc-950/60 backdrop-blur-xs lg:hidden animate-fade-in"
         />
       )}
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-slate-200/90 transition-all duration-300 ease-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-zinc-200 transition-all duration-300 ease-out lg:translate-x-0 ${
           isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-zinc-100">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-2xl bg-rose-900 flex items-center justify-center text-white shadow-xs">
-              <Fingerprint className="w-4 h-4 text-amber-300" />
+            <div className="w-8 h-8 rounded-2xl bg-zinc-900 flex items-center justify-center text-white shadow-xs">
+              <Fingerprint className="w-4 h-4 text-amber-400" />
             </div>
             <div>
-              <span className="font-black text-lg text-slate-900 tracking-tight">
-                Attend<span className="text-rose-900">AI</span>
+              <span className="font-black text-lg text-zinc-900 tracking-tight">
+                Attend<span className="text-amber-600">AI</span>
               </span>
               <p className="text-[9px] uppercase tracking-wider font-extrabold text-amber-700 leading-none">
                 Bio-Metric v2.5
@@ -86,14 +86,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 lg:hidden cursor-pointer"
+            className="p-1 rounded-lg text-zinc-400 hover:text-zinc-700 lg:hidden cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div className="px-4 py-6 space-y-1.5 overflow-y-auto max-h-[calc(100vh-4rem)]">
-          <p className="px-3 pb-2 text-[10px] font-black uppercase tracking-wider text-slate-400">
+          <p className="px-3 pb-2 text-[10px] font-black uppercase tracking-wider text-zinc-400">
             Navigation Menu
           </p>
           {navItems.map((item) => {
@@ -106,8 +106,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-rose-900 text-white shadow-md shadow-rose-950/20'
-                      : 'text-slate-700 hover:bg-rose-50 hover:text-rose-950 hover:translate-x-1'
+                      ? 'bg-zinc-900 text-white shadow-md shadow-zinc-950/20'
+                      : 'text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950 hover:translate-x-1'
                   }`
                 }
               >
@@ -126,12 +126,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Bottom Hardware Hub Mini-Card */}
-        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-rose-50/80 border border-rose-200/70 rounded-2xl">
-          <div className="flex items-center space-x-2 text-rose-950 text-xs font-bold">
+        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-zinc-50 border border-zinc-200 rounded-2xl">
+          <div className="flex items-center space-x-2 text-zinc-900 text-xs font-bold">
             <ShieldCheck className="w-4 h-4 text-amber-600" />
             <span>BioEnable Fusion</span>
           </div>
-          <p className="text-[10px] text-slate-500 mt-1 leading-snug">
+          <p className="text-[10px] text-zinc-500 mt-1 leading-snug">
             Multi-sensor face, fingerprint & RFID smart card verified.
           </p>
         </div>

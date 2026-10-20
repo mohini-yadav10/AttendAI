@@ -26,3 +26,17 @@ class MatchFacesResponse(BaseModel):
     status: str
     message: str
     isMock: bool
+
+class EngagementIngestRequest(BaseModel):
+    student_id: int
+    name: str
+    timestamp: Optional[float] = None
+    presence_duration: float = 0.0
+    movement_score: float = 0.5
+    speech_ratio: float = 0.0
+    inactivity_duration: float = 0.0
+    attendance_status: str = "pending"
+
+class SimulateSessionRequest(BaseModel):
+    duration_seconds: int = 15
+    num_students: int = 5
