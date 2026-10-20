@@ -104,6 +104,72 @@ st.markdown("""
         border-radius: 6px;
         font-weight: 600;
     }
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+    }
+    .custom-table th {
+        background: #27272a;
+        color: #d4d4d8;
+        text-align: left;
+        padding: 10px 12px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .custom-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #27272a;
+        color: #e4e4e7;
+    }
+    .custom-table tr:hover {
+        background: #27272a44;
+    }
+    .eng-bar-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        background: #18181b;
+        border: 1px solid #27272a;
+        padding: 10px 14px;
+        border-radius: 8px;
+    }
+    .eng-bar-name {
+        width: 130px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #f4f4f5;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .eng-bar-track {
+        flex-grow: 1;
+        height: 12px;
+        background: #27272a;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .eng-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #d97706, #f59e0b);
+        border-radius: 6px;
+    }
+    .eng-bar-val {
+        width: 55px;
+        text-align: right;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #f59e0b;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -208,27 +274,64 @@ left_col, right_col = st.columns([1.6, 1.4])
 with left_col:
     st.markdown("### 📋 Timestamped Attendance & Student Engagement")
     
-    # Create DataFrame for display
-    df_data = []
+    # Custom HTML Table without pyarrow DLL dependency
+    rows_html = ""
     for s in students:
-        df_data.append({
-            "ID": s["student_id"],
-            "Student Name": s["name"],
-            "Status": s["attendance_status"].upper(),
-            "Avg Engagement": f"{s['avg_engagement_score']:.1%}",
-            "Engagement Label": s["engagement_label"],
-            "Trend": s["engagement_trend"].capitalize(),
-            "Drops (<30%)": s["attention_drop_count"],
-        })
-    df = pd.DataFrame(df_data)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+        status_val = s["attendance_status"].upper()
+        if status_val == "PRESENT":
+            badge = '<span class="badge-present">PRESENT</span>'
+        elif status_val == "ABSENT":
+            badge = '<span class="badge-absent">ABSENT</span>'
+        else:
+            badge = '<span class="badge-pending">PENDING</span>'
+            
+        rows_html += f"""
+        <tr>
+            <td style="font-weight: 600; color: #a1a1aa;">#{s["student_id"]}</td>
+            <td style="font-weight: 600;">{s["name"]}</td>
+            <td>{badge}</td>
+            <td style="font-weight: 700; color: #f59e0b;">{s["avg_engagement_score"]:.1%}</td>
+            <td><small style="color: #d4d4d8;">{s["engagement_label"]}</small></td>
+            <td>{s["engagement_trend"].capitalize()}</td>
+            <td>{s["attention_drop_count"]}</td>
+        </tr>
+        """
+        
+    table_html = f"""
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Status</th>
+                <th>Engagement</th>
+                <th>Category</th>
+                <th>Trend</th>
+                <th>Drops</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rows_html}
+        </tbody>
+    </table>
+    """
+    st.markdown(table_html, unsafe_allow_html=True)
 
     st.markdown("#### 📈 Student Engagement Comparison")
-    chart_df = pd.DataFrame({
-        "Student": [s["name"] for s in students],
-        "Engagement Score (%)": [s["avg_engagement_score"] * 100 for s in students]
-    }).set_index("Student")
-    st.bar_chart(chart_df, color="#f59e0b")
+    # Custom CSS Visual Progress Bars (Zero DLL / pyarrow requirement)
+    bars_html = ""
+    for s in students:
+        pct = round(s["avg_engagement_score"] * 100, 1)
+        bars_html += f"""
+        <div class="eng-bar-container">
+            <div class="eng-bar-name" title="{s['name']}">{s['name']}</div>
+            <div class="eng-bar-track">
+                <div class="eng-bar-fill" style="width: {min(pct, 100.0)}%;"></div>
+            </div>
+            <div class="eng-bar-val">{pct}%</div>
+        </div>
+        """
+    st.markdown(bars_html, unsafe_allow_html=True)
 
 with right_col:
     st.markdown("### 💡 AI-Driven Teaching Suggestions")
