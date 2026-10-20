@@ -547,7 +547,7 @@ export const AttendanceCapturePage: React.FC = () => {
 
                       {isVerified ? (
                         <div className="flex items-center space-x-1.5 text-marigold-600 font-bold font-mono">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <CheckCircle2 className="w-4 h-4 text-amber-600" />
                           <span>{Math.round(stu.faceConf * 100)}%</span>
                         </div>
                       ) : (

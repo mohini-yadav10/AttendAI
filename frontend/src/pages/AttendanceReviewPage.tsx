@@ -210,7 +210,7 @@ export const AttendanceReviewPage: React.FC = () => {
         {/* Commit bar */}
         <div className="p-6 bg-slate-50/50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2 text-xs text-slate-500">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <ShieldCheck className="w-4 h-4 text-amber-600" />
             <span>Biometric signatures verified across Face, Fingerprint, and RFID pass nodes.</span>
           </div>
 

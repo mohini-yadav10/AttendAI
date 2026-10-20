@@ -13,7 +13,7 @@ import {
   Activity,
   X,
   Fingerprint,
-  QrCode,
+  CreditCard,
   Sparkles,
 } from 'lucide-react';
 
@@ -46,7 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const studentNavItems: NavItem[] = [
     { name: 'My Biometric Portal', path: '/student/dashboard', icon: LayoutDashboard },
-    { name: 'System Health', path: '/status', icon: Activity },
+    { name: 'System Telemetry', path: '/status', icon: Activity },
   ];
 
   const navItems = isTeacher ? teacherNavItems : studentNavItems;
@@ -57,7 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-pine-950/50 backdrop-blur-xs lg:hidden animate-fade-in"
+          className="fixed inset-0 z-40 bg-wine-950/60 backdrop-blur-xs lg:hidden animate-fade-in"
         />
       )}
 
@@ -69,14 +69,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       >
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-2xl bg-pine-700 flex items-center justify-center text-white shadow-xs">
-              <Fingerprint className="w-4 h-4 text-marigold-400" />
+            <div className="w-8 h-8 rounded-2xl bg-wine-800 flex items-center justify-center text-white shadow-xs">
+              <Fingerprint className="w-4 h-4 text-amber-300" />
             </div>
             <div>
               <span className="font-black text-lg text-slate-900 tracking-tight">
-                Attend<span className="text-pine-700">AI</span>
+                Attend<span className="text-wine-800">AI</span>
               </span>
-              <p className="text-[9px] uppercase tracking-wider font-extrabold text-marigold-600 leading-none">
+              <p className="text-[9px] uppercase tracking-wider font-extrabold text-amber-600 leading-none">
                 Bio-Metric v2.5
               </p>
             </div>
@@ -103,8 +103,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-pine-700 text-white shadow-md shadow-pine-700/20'
-                      : 'text-slate-600 hover:bg-pine-50 hover:text-pine-800 hover:translate-x-1'
+                      ? 'bg-wine-800 text-white shadow-md shadow-wine-800/20'
+                      : 'text-slate-600 hover:bg-wine-50 hover:text-wine-900 hover:translate-x-1'
                   }`
                 }
               >
@@ -113,7 +113,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   <span>{item.name}</span>
                 </div>
                 {item.highlight && (
-                  <span className="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-marigold-500 text-white font-extrabold shadow-2xs">
+                  <span className="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-500 text-white font-extrabold shadow-2xs">
                     Live
                   </span>
                 )}
@@ -123,9 +123,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Bottom Hardware Hub Mini-Card */}
-        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-pine-50/70 border border-pine-200/60 rounded-2xl">
-          <div className="flex items-center space-x-2 text-pine-800 text-xs font-bold">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-wine-50/70 border border-wine-200/60 rounded-2xl">
+          <div className="flex items-center space-x-2 text-wine-900 text-xs font-bold">
+            <ShieldCheck className="w-4 h-4 text-amber-600" />
             <span>BioEnable Fusion</span>
           </div>
           <p className="text-[10px] text-slate-500 mt-1 leading-snug">

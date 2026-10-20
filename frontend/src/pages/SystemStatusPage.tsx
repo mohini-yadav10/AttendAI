@@ -119,13 +119,13 @@ export const SystemStatusPage: React.FC = () => {
                   <span
                     className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
                       isOperational
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        : 'bg-marigold-50 text-marigold-700 border-marigold-200'
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-wine-50 text-wine-800 border-wine-200'
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        isOperational ? 'bg-emerald-500' : 'bg-marigold-500'
+                        isOperational ? 'bg-amber-500' : 'bg-wine-600'
                       }`}
                     />
                     <span>{isOperational ? 'Online' : 'Safe Mock'}</span>
@@ -140,7 +140,7 @@ export const SystemStatusPage: React.FC = () => {
 
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
                 <span>{svc.port}</span>
-                <span className="text-emerald-600 font-bold">Latency: 28ms</span>
+                <span className="text-amber-600 font-bold">Latency: 28ms</span>
               </div>
             </div>
           );

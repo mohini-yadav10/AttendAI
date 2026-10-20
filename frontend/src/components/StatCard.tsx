@@ -43,8 +43,8 @@ export const StatCard: React.FC<StatCardProps> = ({
         <div className="mt-3 flex items-center text-xs space-x-2">
           {trend && (
             <span
-              className={`font-semibold ${
-                trend.positive ? 'text-emerald-600' : 'text-rose-600'
+              className={`font-bold ${
+                trend.positive ? 'text-amber-600' : 'text-rose-600'
               }`}
             >
               {trend.positive ? '↑' : '↓'} {trend.value}

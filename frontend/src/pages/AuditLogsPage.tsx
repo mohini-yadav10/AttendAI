@@ -80,8 +80,8 @@ export const AuditLogsPage: React.FC = () => {
             Immutable, append-only cryptographic ledger of all sensor triggers and instructor sign-offs
           </p>
         </div>
-        <div className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-pine-50 text-pine-800 border border-pine-200 text-xs font-bold">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
+        <div className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-wine-50 text-wine-800 border border-wine-200 text-xs font-bold">
+          <ShieldCheck className="w-4 h-4 text-amber-600" />
           <span>Ledger Integrity Verified</span>
         </div>
       </div>
@@ -121,7 +121,7 @@ export const AuditLogsPage: React.FC = () => {
                     {log.changes ? JSON.stringify(log.changes) : '—'}
                   </td>
                   <td className="py-4 px-6 text-right">
-                    <span className="inline-flex items-center space-x-1 text-xs font-bold text-emerald-700">
+                    <span className="inline-flex items-center space-x-1 text-xs font-bold text-amber-700">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>Certified</span>
                     </span>

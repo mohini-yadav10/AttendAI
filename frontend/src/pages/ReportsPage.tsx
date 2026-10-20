@@ -102,8 +102,8 @@ export const ReportsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 text-xs font-bold text-pine-800 bg-pine-50 px-3.5 py-2 rounded-2xl border border-pine-200">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
+        <div className="flex items-center space-x-2 text-xs font-bold text-wine-900 bg-wine-50 px-3.5 py-2 rounded-2xl border border-wine-200">
+          <ShieldCheck className="w-4 h-4 text-amber-600" />
           <span>Multimodal verification signatures certified</span>
         </div>
       </div>
@@ -147,7 +147,7 @@ export const ReportsPage: React.FC = () => {
                   <td className="py-3.5 px-6">
                     <span
                       className={`font-black text-xs ${
-                        row.rate < 80 ? 'text-rose-600' : 'text-emerald-700'
+                        row.rate < 80 ? 'text-rose-600' : 'text-amber-700'
                       }`}
                     >
                       {row.rate}%

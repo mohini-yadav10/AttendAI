@@ -134,7 +134,7 @@ export const StudentProfilePage: React.FC = () => {
                 <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono">
                   {profile?.studentId}
                 </span>
-                <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 font-bold border border-amber-200">
                   Enrolled & Active
                 </span>
               </div>
@@ -242,8 +242,8 @@ export const StudentProfilePage: React.FC = () => {
                   <td className="py-4 px-6 text-xs font-mono font-bold text-marigold-600">
                     {Math.round((rec.fpConf || 0.98) * 100)}%
                   </td>
-                  <td className="py-4 px-6 text-xs font-bold text-emerald-700">
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  <td className="py-4 px-6 text-xs font-bold text-amber-800">
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200">
                       {rec.modality || 'Multimodal'}
                     </span>
                   </td>
