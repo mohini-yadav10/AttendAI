@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Menu, LogOut, Sparkles } from 'lucide-react';
+import { Menu, LogOut, ShieldCheck, Cpu, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface NavbarProps {
@@ -11,44 +11,47 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between shadow-2xs">
+    <header className="sticky top-0 z-30 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between shadow-2xs">
       <div className="flex items-center space-x-3">
         <button
           onClick={onToggleSidebar}
-          className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 lg:hidden transition"
+          className="p-2 rounded-2xl text-slate-600 hover:bg-pine-50 hover:text-pine-700 lg:hidden transition"
         >
           <Menu className="w-5 h-5" />
         </button>
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-pine-700 to-pine-500 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+            <Cpu className="w-4 h-4 text-marigold-300" />
           </div>
           <div className="hidden sm:block">
             <span className="text-lg font-black tracking-tight text-slate-900">Attend</span>
-            <span className="text-lg font-black tracking-tight text-indigo-600">AI</span>
+            <span className="text-lg font-black tracking-tight text-pine-700">AI</span>
+            <span className="ml-1.5 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-marigold-100 text-marigold-800 border border-marigold-200">
+              Multimodal
+            </span>
           </div>
         </Link>
       </div>
 
-      <div className="flex items-center space-x-4">
-        {/* Status link */}
+      <div className="flex items-center space-x-3 sm:space-x-4">
+        {/* Multimodal BioEnable Status Pill */}
         <Link
           to="/status"
-          className="hidden md:flex items-center space-x-1.5 px-3 py-1 text-xs font-bold text-emerald-700 bg-emerald-50 rounded-full border border-emerald-200 hover:bg-emerald-100 transition shadow-2xs"
+          className="hidden md:flex items-center space-x-1.5 px-3 py-1 text-xs font-bold text-pine-800 bg-pine-50 rounded-full border border-pine-200 hover:bg-pine-100 transition shadow-2xs"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>AI Vision Engine Active</span>
+          <span>Biometric Fusion Gateway Active</span>
         </Link>
 
         {user && (
           <div className="flex items-center space-x-3 border-l border-slate-200 pl-4">
             <div className="flex items-center space-x-2.5">
-              <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs shadow-2xs ring-2 ring-indigo-50">
+              <div className="w-8 h-8 rounded-full bg-pine-700 text-white font-bold flex items-center justify-center text-xs shadow-xs ring-2 ring-pine-100">
                 {user.name.charAt(0)}
               </div>
               <div className="hidden sm:block text-left">
                 <p className="text-xs font-bold text-slate-800 leading-tight">{user.name}</p>
-                <span className="text-[10px] uppercase font-extrabold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">
+                <span className="text-[10px] uppercase font-extrabold text-marigold-700 bg-marigold-50 px-1.5 py-0.5 rounded-md border border-marigold-200">
                   {user.role}
                 </span>
               </div>

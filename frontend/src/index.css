@@ -1,108 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base Styles ─────────────────────────────────────────── */
 @layer base {
   :root {
-    --color-primary: #2d7d2d;
-    --color-primary-light: #4fa04f;
-    --color-sage: #6b8f6b;
-    --color-gold: #f59e0b;
-    --color-background: #f8fafc;
-    --color-surface: #ffffff;
-    --color-charcoal: #334155;
-    --color-border: #e2e8f0;
-    --sidebar-width: 260px;
-    --header-height: 64px;
-    --radius-card: 1.25rem;
-    --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    --color-pine: #1b4d44;
+    --color-marigold: #f3a826;
+    --color-bg: #f4f7f6;
+    --color-card: #ffffff;
   }
 
   html {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-feature-settings: 'cv11', 'ss01';
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-slate-50 text-slate-800 min-h-screen selection:bg-indigo-500 selection:text-white;
+    @apply bg-background text-slate-800 min-h-screen selection:bg-pine-600 selection:text-white;
   }
 
-  /* Focus visible ring */
   *:focus-visible {
-    @apply outline-none ring-2 ring-indigo-500 ring-offset-2;
-  }
-
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
+    @apply outline-none ring-2 ring-marigold-500 ring-offset-2;
   }
 }
 
-/* ── Custom Animations & Micro-interactions ───────────────── */
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateY(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes floatGentle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 1;
-    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
-  }
-  50% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.7));
-  }
-}
-
-.animate-pop-in {
-  animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.animate-float {
-  animation: floatGentle 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 2.5s ease-in-out infinite;
-}
-
-/* Card interactive elevation */
+/* ── Interactive Card & Button Utilities ─────────────────── */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 28px -6px rgba(27, 77, 68, 0.12), 0 4px 10px -2px rgba(27, 77, 68, 0.06);
 }
 
-.btn-interactive {
+.card-pill-stat {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-interactive:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.04);
+.card-pill-stat:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
 }
-.btn-interactive:active {
-  transform: scale(0.98);
+
+.btn-pine {
+  @apply bg-pine-700 text-white font-bold rounded-2xl hover:bg-pine-800 active:scale-95 transition-all shadow-sm hover:shadow-md;
+}
+
+.btn-marigold {
+  @apply bg-marigold-500 text-white font-bold rounded-2xl hover:bg-marigold-600 active:scale-95 transition-all shadow-sm hover:shadow-md hover:shadow-marigold-500/20;
+}
+
+.btn-soft {
+  @apply bg-white text-slate-700 border border-slate-200/90 font-semibold rounded-2xl hover:bg-slate-50 active:scale-95 transition-all;
+}
+
+/* Biometric scan laser line */
+.scan-laser {
+  background: linear-gradient(180deg, rgba(243, 168, 38, 0) 0%, rgba(243, 168, 38, 0.8) 50%, rgba(243, 168, 38, 0) 100%);
+  animation: scanLine 2.2s ease-in-out infinite;
+}
+
+/* Circular progress stroke animation */
+.circle-progress-ring {
+  transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
 }

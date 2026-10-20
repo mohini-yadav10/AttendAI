@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../services/api';
-import { Sparkles, Lock, Mail, ArrowRight, UserCheck } from 'lucide-react';
+import { Lock, Mail, ArrowRight, UserCheck, Fingerprint } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const LoginPage: React.FC = () => {
@@ -31,7 +31,6 @@ export const LoginPage: React.FC = () => {
         toast.error(res.error || 'Invalid email or password.');
       }
     } catch {
-      // In offline / fallback mode, permit login if matching demo accounts
       if (email === 'teacher@attendai.edu' || email.includes('teacher')) {
         login('mock-jwt-teacher-token', {
           id: '60c72b2f9b1d8b2bad6838a1',
@@ -71,32 +70,34 @@ export const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link to="/" className="inline-flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-700 to-primary-500 flex items-center justify-center text-white shadow-sm">
-            <Sparkles className="w-6 h-6" />
+        <Link to="/" className="inline-flex items-center space-x-2.5">
+          <div className="w-11 h-11 rounded-3xl bg-pine-700 flex items-center justify-center text-white shadow-md shadow-pine-700/20">
+            <Fingerprint className="w-6 h-6 text-marigold-400" />
           </div>
-          <span className="font-extrabold text-2xl tracking-tight text-charcoal-900">
-            Attend<span className="text-primary-600">AI</span>
+          <span className="font-black text-2xl tracking-tight text-slate-900">
+            Attend<span className="text-pine-700">AI</span>
           </span>
         </Link>
-        <h2 className="mt-4 text-2xl font-bold text-charcoal-900">Sign in to your account</h2>
-        <p className="mt-1 text-sm text-charcoal-500">
+        <h2 className="mt-4 text-2xl font-black text-slate-900 tracking-tight">
+          Biometric Gateway Access
+        </h2>
+        <p className="mt-1 text-xs text-slate-500">
           Or{' '}
-          <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
-            register for a new account
+          <Link to="/register" className="font-bold text-pine-700 hover:text-pine-900">
+            register new institution account
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-surface py-8 px-6 shadow-sm border border-charcoal-200 rounded-2xl sm:px-10">
-          <form className="space-y-5" onSubmit={handleLogin}>
+        <div className="bg-white py-8 px-6 shadow-sm border border-slate-200/80 rounded-3xl sm:px-10 card-hover">
+          <form className="space-y-4" onSubmit={handleLogin}>
             <div>
-              <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Email address
               </label>
-              <div className="mt-1.5 relative rounded-xl shadow-2xs">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-charcoal-400">
+              <div className="mt-1.5 relative rounded-2xl shadow-2xs">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Mail className="h-4 w-4" />
                 </div>
                 <input
@@ -105,17 +106,17 @@ export const LoginPage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="teacher@attendai.edu"
                   required
-                  className="block w-full pl-9 pr-3 py-2.5 border border-charcoal-300 rounded-xl text-sm placeholder-charcoal-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-200 rounded-2xl text-xs placeholder-slate-400 focus:ring-2 focus:ring-pine-600 focus:border-pine-600"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Password
               </label>
-              <div className="mt-1.5 relative rounded-xl shadow-2xs">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-charcoal-400">
+              <div className="mt-1.5 relative rounded-2xl shadow-2xs">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Lock className="h-4 w-4" />
                 </div>
                 <input
@@ -124,7 +125,7 @@ export const LoginPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
                   required
-                  className="block w-full pl-9 pr-3 py-2.5 border border-charcoal-300 rounded-xl text-sm placeholder-charcoal-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-200 rounded-2xl text-xs placeholder-slate-400 focus:ring-2 focus:ring-pine-600 focus:border-pine-600"
                 />
               </div>
             </div>
@@ -132,33 +133,33 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-xl shadow-xs text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition disabled:opacity-50"
+              className="w-full flex justify-center items-center space-x-2 py-3 px-4 rounded-2xl shadow-md text-xs font-black text-white bg-pine-700 hover:bg-pine-800 transition active:scale-95 uppercase tracking-wider disabled:opacity-50"
             >
-              <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
+              <span>{loading ? 'Verifying Credentials...' : 'Sign In'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          {/* Quick Demo Autofill section */}
-          <div className="mt-6 pt-6 border-t border-charcoal-200">
-            <p className="text-xs font-semibold text-charcoal-500 uppercase tracking-wider text-center mb-3">
+          {/* Quick Demo Autofill */}
+          <div className="mt-6 pt-5 border-t border-slate-100">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider text-center mb-3">
               One-Click Demo Credentials
             </p>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleDemoFill('teacher')}
-                className="flex items-center justify-center space-x-1.5 py-2 px-3 border border-charcoal-200 rounded-lg text-xs font-medium text-charcoal-700 bg-charcoal-50 hover:bg-charcoal-100 transition"
+                className="flex items-center justify-center space-x-1.5 py-2 px-3 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 transition"
               >
-                <UserCheck className="w-3.5 h-3.5 text-primary-600" />
+                <UserCheck className="w-3.5 h-3.5 text-pine-700" />
                 <span>Fill Teacher</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleDemoFill('student')}
-                className="flex items-center justify-center space-x-1.5 py-2 px-3 border border-charcoal-200 rounded-lg text-xs font-medium text-charcoal-700 bg-charcoal-50 hover:bg-charcoal-100 transition"
+                className="flex items-center justify-center space-x-1.5 py-2 px-3 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 transition"
               >
-                <UserCheck className="w-3.5 h-3.5 text-sage-600" />
+                <UserCheck className="w-3.5 h-3.5 text-marigold-600" />
                 <span>Fill Student</span>
               </button>
             </div>

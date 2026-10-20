@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auditApi } from '../services/api';
 import { LoadingSpinner } from '../components/Loading';
-import { ShieldCheck, ShieldAlert, Clock, User, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, Clock, User, CheckCircle2, Fingerprint, Camera, QrCode } from 'lucide-react';
 
 export const AuditLogsPage: React.FC = () => {
   const [logs, setLogs] = useState<any[]>([]);
@@ -34,94 +34,96 @@ export const AuditLogsPage: React.FC = () => {
         resourceType: 'Session',
         user: { name: 'Dr. Sarah Mitchell', email: 'teacher@attendai.edu' },
         createdAt: new Date().toISOString(),
-        changes: { faceCount: 5, isMock: true },
+        changes: { faceCount: 5, isMock: true, livenessScore: 98.2 },
         success: true,
       },
       {
         _id: 'log-2',
-        action: 'ATTENDANCE_COMMITTED',
+        action: 'MULTIMODAL_FUSION_COMMIT',
         resourceType: 'AttendanceRecord',
         user: { name: 'Dr. Sarah Mitchell', email: 'teacher@attendai.edu' },
         createdAt: new Date(Date.now() - 3600000).toISOString(),
-        changes: { confirmedPresent: 7, confirmedLate: 1 },
+        changes: { confirmedPresent: 7, confirmedLate: 1, sensors: ['Face', 'Fingerprint', 'RFID'] },
         success: true,
       },
       {
         _id: 'log-3',
-        action: 'MANUAL_STATUS_OVERRIDE',
-        resourceType: 'AttendanceRecord',
+        action: 'FINGERPRINT_AUTHENTICATION',
+        resourceType: 'BiometricGate',
         user: { name: 'Dr. Sarah Mitchell', email: 'teacher@attendai.edu' },
-        createdAt: new Date(Date.now() - 86400000).toISOString(),
-        changes: { student: 'Fatima Zahra', oldStatus: 'absent', newStatus: 'excused', reason: 'Medical note provided' },
+        createdAt: new Date(Date.now() - 7200000).toISOString(),
+        changes: { student: 'Alex Johnson', ridgeMatch: 99.4, sensor: 'Capacitive 500DPI' },
         success: true,
       },
       {
         _id: 'log-4',
-        action: 'SYSTEM_SEED',
-        resourceType: 'System',
-        user: { name: 'System Administrator', email: 'admin@attendai.edu' },
-        createdAt: new Date(Date.now() - 7 * 86400000).toISOString(),
-        changes: { note: 'Initial synthetic seed generation' },
+        action: 'MANUAL_STATUS_OVERRIDE',
+        resourceType: 'AttendanceRecord',
+        user: { name: 'Dr. Sarah Mitchell', email: 'teacher@attendai.edu' },
+        createdAt: new Date(Date.now() - 86400000).toISOString(),
+        changes: { student: 'Fatima Zahra', oldStatus: 'absent', newStatus: 'excused', reason: 'Medical note' },
         success: true,
       },
     ]);
   };
 
-  if (loading) return <LoadingSpinner text="Loading security audit records..." />;
+  if (loading) return <LoadingSpinner text="Loading biometric audit trail..." />;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-pop-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-charcoal-900">Security & Audit History</h1>
-          <p className="text-sm text-charcoal-500">
-            Immutable, append-only ledger of all AI face detection and manual attendance overrides
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            Security & Biometric Audit Trail
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Immutable, append-only cryptographic ledger of all sensor triggers and instructor sign-offs
           </p>
         </div>
-        <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">
+        <div className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-pine-50 text-pine-800 border border-pine-200 text-xs font-bold">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>Ledger Integrity Verified</span>
         </div>
       </div>
 
-      <div className="bg-surface rounded-2xl border border-charcoal-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden card-hover">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="bg-background text-charcoal-500 uppercase text-[11px] font-semibold tracking-wider border-b border-charcoal-200">
-                <th className="py-3 px-6">Timestamp</th>
-                <th className="py-3 px-6">Action</th>
-                <th className="py-3 px-6">Instructor / User</th>
-                <th className="py-3 px-6">Resource</th>
-                <th className="py-3 px-6">Details</th>
-                <th className="py-3 px-6 text-right">Status</th>
+              <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-slate-100">
+                <th className="py-3.5 px-6">Timestamp</th>
+                <th className="py-3.5 px-6">Event Action</th>
+                <th className="py-3.5 px-6">Authorized Signer</th>
+                <th className="py-3.5 px-6">Resource</th>
+                <th className="py-3.5 px-6">Telemetry Payload</th>
+                <th className="py-3.5 px-6 text-right">Verification</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-charcoal-100">
+            <tbody className="divide-y divide-slate-100">
               {logs.map((log) => (
-                <tr key={log._id} className="hover:bg-charcoal-50/50 transition">
-                  <td className="py-4 px-6 text-xs text-charcoal-600 font-mono">
+                <tr key={log._id} className="hover:bg-slate-50/60 transition">
+                  <td className="py-4 px-6 text-xs text-slate-500 font-mono">
                     {new Date(log.createdAt).toLocaleString()}
                   </td>
-                  <td className="py-4 px-6 font-semibold text-charcoal-900 text-xs">
-                    <span className="px-2 py-0.5 rounded bg-primary-50 text-primary-700 border border-primary-200 font-mono">
+                  <td className="py-4 px-6 text-xs">
+                    <span className="px-2.5 py-1 rounded-md bg-pine-50 text-pine-800 border border-pine-200 font-mono font-bold">
                       {log.action}
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-xs text-charcoal-800">
-                    <p className="font-semibold">{log.user?.name || 'Authorized Instructor'}</p>
-                    <p className="text-[11px] text-charcoal-400">{log.user?.email}</p>
+                  <td className="py-4 px-6 text-xs text-slate-800">
+                    <p className="font-bold">{log.user?.name || 'Authorized Instructor'}</p>
+                    <p className="text-[10px] text-slate-400">{log.user?.email}</p>
                   </td>
-                  <td className="py-4 px-6 text-xs text-charcoal-600 font-medium">
+                  <td className="py-4 px-6 text-xs text-slate-600 font-semibold">
                     {log.resourceType}
                   </td>
-                  <td className="py-4 px-6 text-xs text-charcoal-600 max-w-xs truncate">
+                  <td className="py-4 px-6 text-xs text-slate-600 font-mono max-w-xs truncate">
                     {log.changes ? JSON.stringify(log.changes) : '—'}
                   </td>
                   <td className="py-4 px-6 text-right">
-                    <span className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-700">
+                    <span className="inline-flex items-center space-x-1 text-xs font-bold text-emerald-700">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>Success</span>
+                      <span>Certified</span>
                     </span>
                   </td>
                 </tr>

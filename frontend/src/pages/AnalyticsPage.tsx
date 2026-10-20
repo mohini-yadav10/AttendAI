@@ -14,8 +14,7 @@ import {
   Cell,
   Legend,
 } from 'recharts';
-import { StatCard } from '../components/StatCard';
-import { TrendingUp, Users, AlertTriangle, Award, Calendar } from 'lucide-react';
+import { TrendingUp, Users, AlertTriangle, Award, Calendar, ShieldCheck, Fingerprint, Camera, QrCode } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const AnalyticsPage: React.FC = () => {
@@ -31,19 +30,12 @@ export const AnalyticsPage: React.FC = () => {
     { date: 'Oct 19', attendance: 91, threshold: 80 },
   ];
 
-  // Course comparisons
-  const courseComparisonData = [
-    { name: 'CS401: Intro to AI', rate: 92.5, students: 8 },
-    { name: 'CS201: Data Structures', rate: 86.4, students: 5 },
-    { name: 'CS301: Computer Architecture', rate: 89.1, students: 12 },
-  ];
-
-  // Status breakdown
-  const pieData = [
-    { name: 'Present', value: 85, color: '#2d7d2d' },
-    { name: 'Late', value: 9, color: '#f59e0b' },
-    { name: 'Absent', value: 4, color: '#ef4444' },
-    { name: 'Excused', value: 2, color: '#0ea5e9' },
+  // Multimodal verification breakdown (BioEnable / HFSecurity)
+  const modalityData = [
+    { name: 'Facial Vision AI', value: 65, color: '#1b4d44' }, // Pine
+    { name: 'Optical Fingerprint', value: 20, color: '#f3a826' }, // Marigold
+    { name: 'RFID Smart Badge', value: 12, color: '#5a9f8f' },
+    { name: 'Manual Override', value: 3, color: '#94a3b8' },
   ];
 
   const atRiskStudents = [
@@ -52,23 +44,25 @@ export const AnalyticsPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-pop-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-charcoal-900">Attendance Analytics & Insights</h1>
-          <p className="text-sm text-charcoal-500">
-            Cohort engagement trends, retention analytics, and performance flags
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            Multimodal Biometric Analytics & Insights
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Cross-sensor verification telemetry, spoof detection, and retention analytics
           </p>
         </div>
-        <div className="flex items-center space-x-2 bg-surface p-1 rounded-xl border border-charcoal-200">
+        <div className="flex items-center space-x-1.5 bg-white p-1 rounded-2xl border border-slate-200 shadow-2xs">
           {(['week', 'month', 'semester'] as const).map((range) => (
             <button
               key={range}
               onClick={() => setSelectedRange(range)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition ${
                 selectedRange === range
-                  ? 'bg-primary-600 text-white shadow-xs'
-                  : 'text-charcoal-600 hover:text-charcoal-900'
+                  ? 'bg-pine-700 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               This {range}
@@ -77,69 +71,75 @@ export const AnalyticsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <StatCard
-          title="Overall Attendance Rate"
-          value="91.4%"
-          subtitle="Top decile in school"
-          icon={TrendingUp}
-          color="primary"
-          trend={{ value: '2.1% improvement', positive: true }}
-        />
-        <StatCard
-          title="At-Risk Cohort"
-          value="1 Student"
-          subtitle="Below 75% attendance threshold"
-          icon={AlertTriangle}
-          color="gold"
-        />
-        <StatCard
-          title="Best Performing Class"
-          value="CS401: AI"
-          subtitle="92.5% avg presence rate"
-          icon={Award}
-          color="sage"
-        />
-        <StatCard
-          title="Total Tracked Sessions"
-          value="24"
-          subtitle="100% verified via AI camera"
-          icon={Calendar}
-          color="charcoal"
-        />
+      {/* ── 3 Horizontal Stat Blocks (Matching Screenshot Style) ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Block 1: Pine Green */}
+        <div className="bg-pine-700 text-white rounded-3xl p-6 shadow-md card-hover flex flex-col justify-between">
+          <div className="flex items-center justify-between text-pine-200 text-xs font-bold">
+            <span>Overall Attendance Rate</span>
+            <TrendingUp className="w-4 h-4 text-marigold-400" />
+          </div>
+          <div className="mt-4">
+            <h3 className="text-3xl font-black">92.4%</h3>
+            <p className="text-xs text-pine-200 mt-1">+3.2% vs previous term</p>
+          </div>
+        </div>
+
+        {/* Block 2: Vibrant Marigold */}
+        <div className="bg-marigold-500 text-white rounded-3xl p-6 shadow-md shadow-marigold-500/20 card-hover flex flex-col justify-between">
+          <div className="flex items-center justify-between text-marigold-100 text-xs font-bold">
+            <span>Anti-Spoofing / Liveness</span>
+            <ShieldCheck className="w-4 h-4 text-white" />
+          </div>
+          <div className="mt-4">
+            <h3 className="text-3xl font-black">99.8%</h3>
+            <p className="text-xs text-marigold-100 mt-1">ScienceDirect Liveness Pass</p>
+          </div>
+        </div>
+
+        {/* Block 3: Pine Green */}
+        <div className="bg-pine-700 text-white rounded-3xl p-6 shadow-md card-hover flex flex-col justify-between">
+          <div className="flex items-center justify-between text-pine-200 text-xs font-bold">
+            <span>At-Risk Watchlist</span>
+            <AlertTriangle className="w-4 h-4 text-marigold-400" />
+          </div>
+          <div className="mt-4">
+            <h3 className="text-3xl font-black">1 Student</h3>
+            <p className="text-xs text-pine-200 mt-1">Below 75% threshold</p>
+          </div>
+        </div>
       </div>
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Trend Line Chart */}
-        <div className="lg:col-span-2 bg-surface rounded-2xl border border-charcoal-200 p-6 shadow-xs">
+        {/* Progression Chart */}
+        <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-7 shadow-xs card-hover">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-bold text-charcoal-900">Attendance Progression</h2>
-              <p className="text-xs text-charcoal-500">Session presence timeline vs institutional target (80%)</p>
+              <h2 className="text-base font-black text-slate-900">Attendance Progression</h2>
+              <p className="text-xs text-slate-400">Recorded sessions vs institutional target (80%)</p>
             </div>
           </div>
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0ede8" />
-                <XAxis dataKey="date" stroke="#888" fontSize={12} tickLine={false} />
-                <YAxis stroke="#888" fontSize={12} tickLine={false} domain={[60, 100]} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} domain={[60, 100]} />
                 <Tooltip
                   formatter={(val: any) => [`${val}%`, 'Attendance']}
                   contentStyle={{
                     backgroundColor: '#ffffff',
-                    borderRadius: '0.75rem',
-                    border: '1px solid #e8e5e0',
+                    borderRadius: '1rem',
+                    border: '1px solid #e2e8f0',
                   }}
                 />
                 <Line
                   type="monotone"
                   dataKey="attendance"
-                  stroke="#2d7d2d"
-                  strokeWidth={3}
-                  dot={{ r: 5, fill: '#2d7d2d' }}
+                  stroke="#1b4d44"
+                  strokeWidth={3.5}
+                  dot={{ r: 5, fill: '#f3a826' }}
                   activeDot={{ r: 7 }}
                 />
                 <Line
@@ -155,23 +155,23 @@ export const AnalyticsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Pie Breakdown */}
-        <div className="bg-surface rounded-2xl border border-charcoal-200 p-6 shadow-xs flex flex-col justify-between">
+        {/* Modality Breakdown Pie */}
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs flex flex-col justify-between card-hover">
           <div>
-            <h2 className="text-base font-bold text-charcoal-900">Status Distribution</h2>
-            <p className="text-xs text-charcoal-500">Aggregate breakdown across all sessions</p>
+            <h2 className="text-base font-black text-slate-900">Modality Distribution</h2>
+            <p className="text-xs text-slate-400">Share of biometric verification channels</p>
 
             <div className="h-56 w-full mt-2">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={pieData}
+                    data={modalityData}
                     innerRadius={50}
                     outerRadius={80}
                     paddingAngle={4}
                     dataKey="value"
                   >
-                    {pieData.map((entry, index) => (
+                    {modalityData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
@@ -182,22 +182,22 @@ export const AnalyticsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-charcoal-100 text-xs text-charcoal-500 text-center">
-            Target benchmark: &gt; 90% Present
+          <div className="pt-4 border-t border-slate-100 text-[11px] text-slate-400 text-center font-bold">
+            BioEnable Certified Fusion Protocol
           </div>
         </div>
       </div>
 
-      {/* At-Risk Intervention Panel */}
-      <div className="bg-surface rounded-2xl border border-charcoal-200 p-6 shadow-xs">
+      {/* At-Risk Watchlist */}
+      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs card-hover">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base font-bold text-charcoal-900">Academic Intervention Watchlist</h2>
-            <p className="text-xs text-charcoal-500">
+            <h2 className="text-base font-black text-slate-900">Academic Intervention Watchlist</h2>
+            <p className="text-xs text-slate-400">
               Students falling below minimum requirements who require attendance remediation
             </p>
           </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
             {atRiskStudents.length} Flagged
           </span>
         </div>
@@ -205,7 +205,7 @@ export const AnalyticsPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="bg-background text-charcoal-500 uppercase text-[11px] font-semibold tracking-wider border-b border-charcoal-200">
+              <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-slate-100">
                 <th className="py-3 px-6">Student ID</th>
                 <th className="py-3 px-6">Name</th>
                 <th className="py-3 px-6">Department</th>
@@ -214,20 +214,20 @@ export const AnalyticsPage: React.FC = () => {
                 <th className="py-3 px-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-charcoal-100">
+            <tbody className="divide-y divide-slate-100">
               {atRiskStudents.map((stu) => (
-                <tr key={stu.id} className="hover:bg-charcoal-50/50 transition">
-                  <td className="py-3.5 px-6 font-mono text-xs font-bold text-charcoal-700">
+                <tr key={stu.id} className="hover:bg-slate-50/60 transition">
+                  <td className="py-3.5 px-6 font-mono text-xs font-bold text-slate-700">
                     {stu.studentId}
                   </td>
-                  <td className="py-3.5 px-6 font-semibold text-charcoal-900">{stu.name}</td>
-                  <td className="py-3.5 px-6 text-xs text-charcoal-600">{stu.dept}</td>
+                  <td className="py-3.5 px-6 font-bold text-slate-900">{stu.name}</td>
+                  <td className="py-3.5 px-6 text-xs text-slate-600">{stu.dept}</td>
                   <td className="py-3.5 px-6 font-bold text-xs text-rose-600">{stu.rate}%</td>
-                  <td className="py-3.5 px-6 text-xs text-charcoal-600">{stu.absences} unexcused</td>
+                  <td className="py-3.5 px-6 text-xs text-slate-500">{stu.absences} unexcused</td>
                   <td className="py-3.5 px-6 text-right">
                     <Link
                       to={`/students/${stu.id}`}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-lg text-primary-700 bg-primary-50 hover:bg-primary-100"
+                      className="text-xs font-bold px-3 py-1.5 rounded-xl text-pine-700 bg-pine-50 hover:bg-pine-100"
                     >
                       Remediate
                     </Link>
