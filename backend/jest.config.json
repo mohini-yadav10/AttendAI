@@ -1,0 +1,19 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "roots": ["<rootDir>/src"],
+  "testMatch": ["**/__tests__/**/*.ts", "**/*.test.ts"],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "collectCoverageFrom": [
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
+    "!src/scripts/**"
+  ],
+  "coverageDirectory": "coverage",
+  "testTimeout": 30000,
+  "globalSetup": "<rootDir>/src/tests/setup.ts",
+  "globalTeardown": "<rootDir>/src/tests/teardown.ts"
+}
