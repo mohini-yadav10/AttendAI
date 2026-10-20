@@ -2,7 +2,7 @@
 > **An AI-Powered, Privacy-Preserving Classroom Intelligence System**
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-mohini--yadav10%2FAttendAI-18181b?style=for-the-badge&logo=github)](https://github.com/mohini-yadav10/AttendAI)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Localhost:5173-f59e0b?style=for-the-badge&logo=googlechrome)](http://localhost:5173)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Website_Online-f59e0b?style=for-the-badge&logo=googlechrome)](https://mohini-yadav10.github.io/AttendAI/)
 [![CI Pipeline](https://img.shields.io/badge/CI-Passing-18181b?style=for-the-badge&logo=githubactions)](https://github.com/mohini-yadav10/AttendAI/actions)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776ab?style=for-the-badge&logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -18,7 +18,7 @@
 | **Project Title** | **Multimodal Attendance & Engagement Agent** |
 | **Category / Domain** | **Education** (Individual Project) |
 | **GitHub Repository Link** | [https://github.com/mohini-yadav10/AttendAI](https://github.com/mohini-yadav10/AttendAI) |
-| **Live Interactive Demo Link**| [http://localhost:5173](http://localhost:5173) |
+| **Live Interactive Website Demo**| [https://mohini-yadav10.github.io/AttendAI/](https://mohini-yadav10.github.io/AttendAI/) |
 | **Total Epics** | **9 Epics** (100% Implemented) |
 | **Total Tasks & Stories** | **17 Tasks** (0 Subtasks remaining) |
 | **Skills & Technologies** | **Artificial Intelligence**, **Machine Learning**, **Computer Vision (OpenCV)**, **Python**, **FastAPI**, **React 19**, **Node.js/Express**, **MongoDB** |
