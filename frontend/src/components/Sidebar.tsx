@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Activity,
   X,
+  Sparkles,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -30,12 +31,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Live Face Capture', path: '/sessions/new-capture', icon: Camera },
     { name: 'Analytics & Insights', path: '/analytics', icon: BarChart3 },
     { name: 'Attendance Reports', path: '/reports', icon: FileText },
-    { name: 'Security & Audit Logs', path: '/audit', icon: ShieldCheck },
+    { name: 'Security & Audit', path: '/audit', icon: ShieldCheck },
     { name: 'System Status', path: '/status', icon: Activity },
   ];
 
   const studentNavItems = [
-    { name: 'My Dashboard', path: '/student/dashboard', icon: LayoutDashboard },
+    { name: 'Presence Hub', path: '/student/dashboard', icon: LayoutDashboard },
     { name: 'System Status', path: '/status', icon: Activity },
   ];
 
@@ -47,33 +48,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden animate-fade-in"
         />
       )}
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-surface border-r border-charcoal-200 transition-transform duration-200 ease-in-out lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-slate-200/80 transition-all duration-300 ease-out lg:translate-x-0 ${
+          isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between h-16 px-6 border-b border-charcoal-100">
-          <div className="flex items-center space-x-2">
-            <span className="font-extrabold text-xl text-primary-600">AttendAI</span>
-            <span className="text-xs px-2 py-0.5 font-bold uppercase rounded bg-primary-100 text-primary-800">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-xs">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <span className="font-black text-xl text-slate-900 tracking-tight">
+              Attend<span className="text-indigo-600">AI</span>
+            </span>
+            <span className="text-[10px] px-2 py-0.5 font-extrabold uppercase rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
               v1.0
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-charcoal-400 hover:text-charcoal-700 lg:hidden"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 lg:hidden"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="px-4 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]">
-          <p className="px-3 pb-2 text-[11px] font-bold uppercase tracking-wider text-charcoal-400">
+        <div className="px-4 py-6 space-y-1.5 overflow-y-auto max-h-[calc(100vh-4rem)]">
+          <p className="px-3 pb-2 text-[10px] font-black uppercase tracking-wider text-slate-400">
             Navigation
           </p>
           {navItems.map((item) => {
@@ -84,10 +90,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 to={item.path}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
+                  `flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-primary-50 text-primary-700 font-semibold'
-                      : 'text-charcoal-600 hover:bg-charcoal-50 hover:text-charcoal-900'
+                      ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-200'
+                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 hover:translate-x-1'
                   }`
                 }
               >

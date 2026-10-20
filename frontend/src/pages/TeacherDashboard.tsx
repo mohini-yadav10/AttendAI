@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { StatCard } from '../components/StatCard';
+import { CircularProgress } from '../components/CircularProgress';
 import { Badge } from '../components/Badge';
 import { LoadingSpinner } from '../components/Loading';
 import {
   Users,
-  CheckCircle,
   Calendar,
   Camera,
   ArrowRight,
   TrendingUp,
   Sparkles,
+  Award,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   BarChart,
@@ -22,20 +25,20 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import { sessionApi, analyticsApi } from '../services/api';
+import { sessionApi } from '../services/api';
 
 export const TeacherDashboard: React.FC = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [recentSessions, setRecentSessions] = useState<any[]>([]);
 
-  // Default trend chart data
+  // Weekly attendance chart data
   const attendanceChartData = [
-    { day: 'Mon', attendance: 92, target: 85 },
+    { day: 'Mon', attendance: 94, target: 85 },
     { day: 'Tue', attendance: 88, target: 85 },
-    { day: 'Wed', attendance: 95, target: 85 },
-    { day: 'Thu', attendance: 89, target: 85 },
-    { day: 'Fri', attendance: 94, target: 85 },
+    { day: 'Wed', attendance: 96, target: 85 },
+    { day: 'Thu', attendance: 90, target: 85 },
+    { day: 'Fri', attendance: 93, target: 85 },
   ];
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export const TeacherDashboard: React.FC = () => {
         {
           _id: 'sess-101',
           title: 'Session 03: Real-Time Face Detection & Tracking',
-          className: 'CS401: Artificial Intelligence & Machine Learning',
+          className: 'CS401: Intro to AI & Machine Learning',
           date: new Date().toISOString(),
           status: 'active',
           mode: 'automated',
@@ -69,7 +72,7 @@ export const TeacherDashboard: React.FC = () => {
         {
           _id: 'sess-102',
           title: 'Session 02: Convolutional Neural Networks',
-          className: 'CS401: Artificial Intelligence & Machine Learning',
+          className: 'CS401: Intro to AI & Machine Learning',
           date: new Date(Date.now() - 2 * 86400000).toISOString(),
           status: 'completed',
           mode: 'automated',
@@ -79,7 +82,7 @@ export const TeacherDashboard: React.FC = () => {
         {
           _id: 'sess-103',
           title: 'Session 01: Computer Vision & Edge Detection',
-          className: 'CS401: Artificial Intelligence & Machine Learning',
+          className: 'CS401: Intro to AI & Machine Learning',
           date: new Date(Date.now() - 7 * 86400000).toISOString(),
           status: 'completed',
           mode: 'automated',
@@ -93,181 +96,197 @@ export const TeacherDashboard: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner text="Loading dashboard insights..." />;
+    return <LoadingSpinner text="Loading instructor command center..." />;
   }
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      {/* Welcome Hero Banner */}
-      <div className="bg-gradient-to-r from-primary-800 to-primary-600 rounded-2xl p-6 sm:p-8 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-primary-100 mb-3 backdrop-blur-xs">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Automated Attendance Session</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Welcome back, {user?.name || 'Professor'}!
-          </h1>
-          <p className="mt-1 text-primary-100 text-sm max-w-xl">
-            You have an active session in progress for CS401. Ready to launch the automated camera capture?
-          </p>
-        </div>
-        <div className="flex items-center space-x-3 shrink-0">
-          <Link
-            to="/sessions/new-capture"
-            className="inline-flex items-center space-x-2 px-5 py-3 rounded-xl font-semibold text-primary-800 bg-white hover:bg-primary-50 transition shadow-sm text-sm"
-          >
-            <Camera className="w-4 h-4" />
-            <span>Launch Face Capture</span>
-          </Link>
-        </div>
-      </div>
+    <div className="space-y-8 animate-pop-in">
+      {/* ── Modern Hero Banner ── */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 p-7 sm:p-9 text-white shadow-xl">
+        {/* Subtle decorative circles */}
+        <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full bg-indigo-500/20 blur-xl pointer-events-none" />
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <StatCard
-          title="Total Students"
-          value="8"
-          subtitle="Across 2 active classes"
-          icon={Users}
-          color="primary"
-          trend={{ value: '+2 this semester', positive: true }}
-        />
-        <StatCard
-          title="Avg. Attendance"
-          value="91.8%"
-          subtitle="Above academic target (85%)"
-          icon={CheckCircle}
-          color="sage"
-          trend={{ value: '4.2% vs last month', positive: true }}
-        />
-        <StatCard
-          title="Today's Sessions"
-          value="1 Active"
-          subtitle="CS401: Real-Time Vision"
-          icon={Calendar}
-          color="gold"
-        />
-        <StatCard
-          title="AI Accuracy Rate"
-          value="98.5%"
-          subtitle="Haar & Mock Vision Engine"
-          icon={TrendingUp}
-          color="charcoal"
-          trend={{ value: 'Zero false negatives', positive: true }}
-        />
-      </div>
-
-      {/* Charts & Quick Actions Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Attendance Trend Chart */}
-        <div className="lg:col-span-2 bg-surface rounded-2xl border border-charcoal-200 p-6 shadow-xs">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-base font-bold text-charcoal-900">Weekly Attendance Overview</h2>
-              <p className="text-xs text-charcoal-500">Student presence rates across weekday sessions</p>
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-xs font-bold text-indigo-100 mb-3 border border-white/20">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>Session In Progress • CS401</span>
             </div>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-              Avg 92.4%
-            </span>
+            <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
+              Welcome back, {user?.name || 'Dr. Sarah Mitchell'}
+            </h1>
+            <p className="mt-2 text-indigo-100 text-sm max-w-xl leading-relaxed">
+              Automated computer vision roll call is ready for lecture 03. Take a quick classroom snapshot to mark attendance for 8 students.
+            </p>
           </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Link
+              to="/sessions/new-capture"
+              className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-2xl font-bold text-indigo-900 bg-white hover:bg-indigo-50 shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 text-sm"
+            >
+              <Camera className="w-4 h-4 text-indigo-600" />
+              <span>Launch Face Capture</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Radial Progress Metrics Bar (Matching Reference Aesthetic) ── */}
+      <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs card-hover">
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <div>
+            <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">
+              Institutional Attendance Health
+            </h2>
+            <p className="text-xs text-slate-400">Aggregate telemetry across enrolled courses</p>
+          </div>
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Compliant
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+          <CircularProgress
+            value={92}
+            displayValue="92%"
+            color="#4f46e5"
+            bgColor="#e0e7ff"
+            label="Average Attendance"
+            sublabel="Target: > 85%"
+          />
+          <CircularProgress
+            value={98}
+            displayValue="98.5%"
+            color="#10b981"
+            bgColor="#d1fae5"
+            label="AI Accuracy Rate"
+            sublabel="Zero False Rejections"
+          />
+          <CircularProgress
+            value={80}
+            displayValue="24"
+            color="#f59e0b"
+            bgColor="#fef3c7"
+            label="Total Sessions"
+            sublabel="All Signed Off"
+          />
+        </div>
+      </div>
+
+      {/* ── Visual Analytics & Quick Tile Operations ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Attendance Progression Chart */}
+        <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-7 shadow-xs card-hover">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h2 className="text-base font-extrabold text-slate-900">Weekly Attendance Trend</h2>
+              <p className="text-xs text-slate-400">Weekday percentage presence across classes</p>
+            </div>
+            <div className="flex items-center space-x-2 text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>+3.8% this week</span>
+            </div>
+          </div>
+
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={attendanceChartData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0ede8" />
-                <XAxis dataKey="day" stroke="#888" fontSize={12} tickLine={false} />
-                <YAxis stroke="#888" fontSize={12} tickLine={false} domain={[60, 100]} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="day" stroke="#94a3b8" fontSize={12} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} domain={[60, 100]} />
                 <Tooltip
-                  formatter={(val: any) => [`${val}%`, 'Attendance']}
+                  formatter={(val: any) => [`${val}%`, 'Attendance Rate']}
                   contentStyle={{
                     backgroundColor: '#ffffff',
-                    borderRadius: '0.75rem',
-                    border: '1px solid #e8e5e0',
-                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                    borderRadius: '1rem',
+                    border: '1px solid #e2e8f0',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
                   }}
                 />
-                <Bar dataKey="attendance" fill="#2d7d2d" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="attendance" fill="#4f46e5" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Quick Operations Panel */}
-        <div className="bg-surface rounded-2xl border border-charcoal-200 p-6 shadow-xs flex flex-col justify-between">
+        {/* Quick Operations 4-Tile Grid */}
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs flex flex-col justify-between card-hover">
           <div>
-            <h2 className="text-base font-bold text-charcoal-900">Quick Operations</h2>
-            <p className="text-xs text-charcoal-500 mt-0.5">Common instructor management tasks</p>
+            <h2 className="text-base font-extrabold text-slate-900">Quick Access</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Faculty roll call shortcuts</p>
 
             <div className="mt-5 space-y-3">
               <Link
                 to="/sessions/new-capture"
-                className="flex items-center justify-between p-3.5 rounded-xl border border-charcoal-200 hover:border-primary-500 hover:bg-primary-50/50 transition group"
+                className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200/80 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all duration-200 hover:-translate-y-0.5 active:scale-98 group"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-primary-100 text-primary-700">
-                    <Camera className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-indigo-100 text-indigo-700 group-hover:scale-110 transition-transform">
+                    <Camera className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-charcoal-800">New Attendance Capture</p>
-                    <p className="text-xs text-charcoal-500">Webcam or image upload</p>
+                    <p className="text-xs font-bold text-slate-800">Live Camera Roll Call</p>
+                    <p className="text-[10px] text-slate-400">OpenCV auto-detection</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-charcoal-400 group-hover:text-primary-600 transition" />
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-600 transition" />
               </Link>
 
               <Link
                 to="/students"
-                className="flex items-center justify-between p-3.5 rounded-xl border border-charcoal-200 hover:border-sage-500 hover:bg-sage-50/50 transition group"
+                className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200/80 hover:border-purple-400 hover:bg-purple-50/50 transition-all duration-200 hover:-translate-y-0.5 active:scale-98 group"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-sage-100 text-sage-700">
-                    <Users className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-purple-100 text-purple-700 group-hover:scale-110 transition-transform">
+                    <Users className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-charcoal-800">Manage Students</p>
-                    <p className="text-xs text-charcoal-500">Import CSV or add profiles</p>
+                    <p className="text-xs font-bold text-slate-800">Student Directory</p>
+                    <p className="text-[10px] text-slate-400">CSV import & profiles</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-charcoal-400 group-hover:text-sage-600 transition" />
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-purple-600 transition" />
               </Link>
 
               <Link
                 to="/reports"
-                className="flex items-center justify-between p-3.5 rounded-xl border border-charcoal-200 hover:border-gold-500 hover:bg-gold-50/50 transition group"
+                className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200/80 hover:border-emerald-400 hover:bg-emerald-50/50 transition-all duration-200 hover:-translate-y-0.5 active:scale-98 group"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-gold-100 text-gold-700">
-                    <TrendingUp className="w-5 h-5" />
+                  <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-700 group-hover:scale-110 transition-transform">
+                    <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-charcoal-800">Export Reports</p>
-                    <p className="text-xs text-charcoal-500">Download formatted CSV</p>
+                    <p className="text-xs font-bold text-slate-800">Export Registrar CSV</p>
+                    <p className="text-[10px] text-slate-400">Download signed reports</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-charcoal-400 group-hover:text-gold-600 transition" />
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 transition" />
               </Link>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-charcoal-100 flex items-center justify-between text-xs text-charcoal-500">
-            <span>Next Scheduled: CS201</span>
-            <span className="font-medium text-charcoal-700">Tomorrow, 10:00 AM</span>
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+            <span>Next Lecture: CS201</span>
+            <span className="font-semibold text-slate-700">Tomorrow 10:00 AM</span>
           </div>
         </div>
       </div>
 
-      {/* Recent Sessions Table */}
-      <div className="bg-surface rounded-2xl border border-charcoal-200 shadow-xs overflow-hidden">
-        <div className="p-6 border-b border-charcoal-100 flex items-center justify-between">
+      {/* ── Recent Sessions Table ── */}
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden card-hover">
+        <div className="p-6 border-b border-slate-100 flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-charcoal-900">Recent Class Sessions</h2>
-            <p className="text-xs text-charcoal-500">Recent lecture attendance logs and status</p>
+            <h2 className="text-base font-extrabold text-slate-900">Recent Class Sessions</h2>
+            <p className="text-xs text-slate-400">Lecture periods, facial recognition calls, and logs</p>
           </div>
           <Link
             to="/sessions"
-            className="text-xs font-semibold text-primary-600 hover:text-primary-700 inline-flex items-center space-x-1"
+            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 inline-flex items-center space-x-1"
           >
-            <span>View All Sessions</span>
+            <span>All Sessions</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -275,25 +294,25 @@ export const TeacherDashboard: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="bg-background/80 text-charcoal-500 uppercase text-[11px] font-semibold tracking-wider border-b border-charcoal-200">
-                <th className="py-3 px-6">Session Title</th>
-                <th className="py-3 px-6">Date</th>
-                <th className="py-3 px-6">Mode</th>
-                <th className="py-3 px-6">Status</th>
-                <th className="py-3 px-6">Attendance</th>
-                <th className="py-3 px-6 text-right">Action</th>
+              <tr className="bg-slate-50/80 text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-slate-100">
+                <th className="py-3.5 px-6">Session Title</th>
+                <th className="py-3.5 px-6">Date</th>
+                <th className="py-3.5 px-6">Mode</th>
+                <th className="py-3.5 px-6">Status</th>
+                <th className="py-3.5 px-6">Attendance</th>
+                <th className="py-3.5 px-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-charcoal-100">
+            <tbody className="divide-y divide-slate-100">
               {recentSessions.map((session) => (
-                <tr key={session._id} className="hover:bg-charcoal-50/60 transition">
-                  <td className="py-4 px-6 font-semibold text-charcoal-900">
+                <tr key={session._id} className="hover:bg-slate-50/80 transition-colors">
+                  <td className="py-4 px-6 font-bold text-slate-900">
                     {session.title}
-                    <p className="text-xs font-normal text-charcoal-500">
-                      {session.className || 'CS401: AI & ML'}
+                    <p className="text-xs font-normal text-slate-400">
+                      {session.className || 'CS401: Intro to AI'}
                     </p>
                   </td>
-                  <td className="py-4 px-6 text-charcoal-600 text-xs">
+                  <td className="py-4 px-6 text-slate-500 text-xs">
                     {new Date(session.date).toLocaleDateString(undefined, {
                       month: 'short',
                       day: 'numeric',
@@ -301,22 +320,22 @@ export const TeacherDashboard: React.FC = () => {
                     })}
                   </td>
                   <td className="py-4 px-6">
-                    <span className="text-xs px-2 py-0.5 rounded bg-sage-50 text-sage-700 border border-sage-200 capitalize font-medium">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 capitalize font-bold">
                       {session.mode || 'automated'}
                     </span>
                   </td>
                   <td className="py-4 px-6">
                     <Badge status={session.status || 'completed'} />
                   </td>
-                  <td className="py-4 px-6 font-medium text-charcoal-800 text-xs">
+                  <td className="py-4 px-6 font-semibold text-slate-700 text-xs">
                     {session.presentCount !== undefined ? `${session.presentCount} / ${session.totalCount} Present` : '7 / 8 Present'}
                   </td>
                   <td className="py-4 px-6 text-right">
                     <Link
                       to={`/sessions/${session._id}/capture`}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-lg text-primary-700 bg-primary-50 hover:bg-primary-100 transition"
+                      className="text-xs font-bold px-3.5 py-1.5 rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition shadow-2xs"
                     >
-                      {session.status === 'active' ? 'Capture Now' : 'Review'}
+                      {session.status === 'active' ? 'Capture' : 'Review'}
                     </Link>
                   </td>
                 </tr>
