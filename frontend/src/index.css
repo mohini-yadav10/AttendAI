@@ -6,9 +6,12 @@
 
 @layer base {
   :root {
-    --color-pine: #1b4d44;
-    --color-marigold: #f3a826;
-    --color-bg: #f4f7f6;
+    --color-wine-dark: #4c0519;
+    --color-wine: #881337;
+    --color-wine-light: #9f1239;
+    --color-amber: #f59e0b;
+    --color-amber-dark: #d97706;
+    --color-bg: #fafaf9;
     --color-card: #ffffff;
   }
 
@@ -19,12 +22,37 @@
   }
 
   body {
-    @apply bg-background text-slate-800 min-h-screen selection:bg-pine-600 selection:text-white;
+    @apply bg-background text-slate-800 min-h-screen selection:bg-rose-900 selection:text-white;
+    background-color: #fafaf9;
   }
 
   *:focus-visible {
-    @apply outline-none ring-2 ring-marigold-500 ring-offset-2;
+    @apply outline-none ring-2 ring-amber-500 ring-offset-2;
   }
+}
+
+/* ── Luxury Wine & Sunset Amber Gradient Classes ─────────── */
+.wine-hero-gradient {
+  background: linear-gradient(135deg, #4c0519 0%, #881337 55%, #9f1239 100%) !important;
+  color: #ffffff !important;
+}
+
+.wine-smart-card {
+  background: linear-gradient(145deg, #2e030c 0%, #5c0720 50%, #881337 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 20px 35px -10px rgba(76, 5, 25, 0.45);
+}
+
+.wine-badge {
+  background-color: #ffe4e6;
+  color: #881337;
+  border: 1px solid #fecdd3;
+}
+
+.amber-badge {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
 }
 
 /* ── Interactive Card & Button Utilities ─────────────────── */
@@ -33,7 +61,7 @@
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px -6px rgba(27, 77, 68, 0.12), 0 4px 10px -2px rgba(27, 77, 68, 0.06);
+  box-shadow: 0 14px 28px -6px rgba(136, 19, 55, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
 }
 
 .card-pill-stat {
@@ -44,21 +72,54 @@
   filter: brightness(1.03);
 }
 
-.btn-pine {
-  @apply bg-pine-700 text-white font-bold rounded-2xl hover:bg-pine-800 active:scale-95 transition-all shadow-sm hover:shadow-md;
+.btn-wine {
+  background-color: #881337;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px -2px rgba(136, 19, 55, 0.25);
+}
+.btn-wine:hover {
+  background-color: #700f2b;
+  transform: scale(1.02);
+}
+.btn-wine:active {
+  transform: scale(0.97);
 }
 
-.btn-marigold {
-  @apply bg-marigold-500 text-white font-bold rounded-2xl hover:bg-marigold-600 active:scale-95 transition-all shadow-sm hover:shadow-md hover:shadow-marigold-500/20;
+.btn-amber {
+  background-color: #f59e0b;
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px -2px rgba(245, 158, 11, 0.35);
+}
+.btn-amber:hover {
+  background-color: #d97706;
+  transform: scale(1.02);
+}
+.btn-amber:active {
+  transform: scale(0.97);
 }
 
 .btn-soft {
-  @apply bg-white text-slate-700 border border-slate-200/90 font-semibold rounded-2xl hover:bg-slate-50 active:scale-95 transition-all;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  font-weight: 600;
+  border-radius: 1rem;
+  transition: all 0.2s;
+}
+.btn-soft:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
 }
 
 /* Biometric scan laser line */
 .scan-laser {
-  background: linear-gradient(180deg, rgba(243, 168, 38, 0) 0%, rgba(243, 168, 38, 0.8) 50%, rgba(243, 168, 38, 0) 100%);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0) 0%, rgba(245, 158, 11, 0.85) 50%, rgba(245, 158, 11, 0) 100%);
   animation: scanLine 2.2s ease-in-out infinite;
 }
 

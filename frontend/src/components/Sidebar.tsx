@@ -45,8 +45,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   ];
 
   const studentNavItems: NavItem[] = [
-    { name: 'My Biometric Portal', path: '/student/dashboard', icon: LayoutDashboard },
-    { name: 'System Telemetry', path: '/status', icon: Activity },
+    { name: 'Biometric Dashboard', path: '/student/dashboard', icon: LayoutDashboard },
+    { name: 'Course Modules', path: '/student/dashboard#courses', icon: BookOpen },
+    { name: 'Smart RFID Pass', path: '/student/dashboard#pass', icon: CreditCard, highlight: true },
+    { name: 'Telemetry Logs', path: '/student/dashboard#logs', icon: Fingerprint },
+    { name: 'System Health', path: '/status', icon: Activity },
   ];
 
   const navItems = isTeacher ? teacherNavItems : studentNavItems;
@@ -57,7 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-wine-950/60 backdrop-blur-xs lg:hidden animate-fade-in"
+          className="fixed inset-0 z-40 bg-rose-950/60 backdrop-blur-xs lg:hidden animate-fade-in"
         />
       )}
 
@@ -69,21 +72,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       >
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-2xl bg-wine-800 flex items-center justify-center text-white shadow-xs">
+            <div className="w-8 h-8 rounded-2xl bg-rose-900 flex items-center justify-center text-white shadow-xs">
               <Fingerprint className="w-4 h-4 text-amber-300" />
             </div>
             <div>
               <span className="font-black text-lg text-slate-900 tracking-tight">
-                Attend<span className="text-wine-800">AI</span>
+                Attend<span className="text-rose-900">AI</span>
               </span>
-              <p className="text-[9px] uppercase tracking-wider font-extrabold text-amber-600 leading-none">
+              <p className="text-[9px] uppercase tracking-wider font-extrabold text-amber-700 leading-none">
                 Bio-Metric v2.5
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 lg:hidden"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 lg:hidden cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -103,8 +106,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-wine-800 text-white shadow-md shadow-wine-800/20'
-                      : 'text-slate-600 hover:bg-wine-50 hover:text-wine-900 hover:translate-x-1'
+                      ? 'bg-rose-900 text-white shadow-md shadow-rose-950/20'
+                      : 'text-slate-700 hover:bg-rose-50 hover:text-rose-950 hover:translate-x-1'
                   }`
                 }
               >
@@ -123,8 +126,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Bottom Hardware Hub Mini-Card */}
-        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-wine-50/70 border border-wine-200/60 rounded-2xl">
-          <div className="flex items-center space-x-2 text-wine-900 text-xs font-bold">
+        <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-rose-50/80 border border-rose-200/70 rounded-2xl">
+          <div className="flex items-center space-x-2 text-rose-950 text-xs font-bold">
             <ShieldCheck className="w-4 h-4 text-amber-600" />
             <span>BioEnable Fusion</span>
           </div>

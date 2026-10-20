@@ -21,6 +21,7 @@ import {
   Send,
   X,
   Radio,
+  BookOpen,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -29,7 +30,6 @@ export const StudentDashboard: React.FC = () => {
 
   // State for attendance predictor simulator
   const [classesToMiss, setClassesToMiss] = useState<number>(1);
-  const [targetPercent, setTargetPercent] = useState<number>(85);
 
   // Leave request modal state
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
@@ -43,7 +43,7 @@ export const StudentDashboard: React.FC = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   // Student Courses Data
-  const [courses, setCourses] = useState([
+  const [courses] = useState([
     {
       code: 'CS401',
       name: 'Computer Science & Software Architecture',
@@ -166,90 +166,91 @@ export const StudentDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in pb-12">
-      {/* ── Top Hero Banner (Full-Width Website Format) ── */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-wine-900 via-wine-800 to-wine-700 text-white p-6 sm:p-8 shadow-xl">
-        {/* Decorative ambient amber & wine glows */}
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 -mb-20 w-72 h-72 rounded-full bg-wine-500/20 blur-3xl pointer-events-none" />
+      {/* ── Top Hero Banner (Rich Wine & Amber Gradient) ── */}
+      <div className="wine-hero-gradient relative overflow-hidden rounded-3xl p-7 sm:p-9 shadow-xl border border-rose-950/40">
+        {/* Subtle decorative glowing spheres */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-400/20 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-20 w-72 h-72 rounded-full bg-rose-600/25 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold uppercase tracking-wider backdrop-blur-xs">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-xs font-black uppercase tracking-wider backdrop-blur-xs shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>BioEnable Multimodal Student Portal</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-sm">
               Welcome back, {user?.name || 'Alex Johnson'}!
             </h1>
-            <p className="text-sm text-wine-100/90 max-w-2xl leading-relaxed">
+            <p className="text-sm text-rose-100 font-medium max-w-2xl leading-relaxed">
               Enrolled in Computer Science & Artificial Intelligence • Student ID:{' '}
-              <span className="font-mono text-amber-200 font-bold">STU-2026-8829</span> • Semester
-              VI
+              <span className="font-mono text-amber-300 font-extrabold px-1.5 py-0.5 rounded-md bg-black/20">
+                STU-2026-8829
+              </span>{' '}
+              • Semester VI
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => setIsBiometricModalOpen(true)}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/30 transition-all duration-200 active:scale-95 cursor-pointer"
+              className="btn-amber inline-flex items-center space-x-2 px-5 py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider cursor-pointer"
             >
-              <Fingerprint className="w-4 h-4" />
+              <Fingerprint className="w-4 h-4 text-white" />
               <span>Test Biometric ID</span>
             </button>
             <button
               onClick={() => setIsLeaveModalOpen(true)}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-xs"
+              className="inline-flex items-center space-x-2 px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer backdrop-blur-xs"
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-white" />
               <span>Request Leave</span>
             </button>
           </div>
         </div>
 
-        {/* Status bar pills */}
-        <div className="relative z-10 mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-wine-100">
+        {/* Status bar pills with high contrast */}
+        <div className="relative z-10 mt-7 pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-white">
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
               <span>RFID Smart Pass: Active</span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
               <span>Facial Token: 3D Enrolled</span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
               <span>Optical Fingerprint: Verified</span>
             </div>
           </div>
-          <div className="text-amber-200 font-mono text-xs">
-            Term Attendance: <span className="text-white font-extrabold">{overallRate}%</span> (Min
-            Req: 75%)
+          <div className="text-amber-200 font-mono text-xs bg-black/30 px-3.5 py-1.5 rounded-full border border-amber-400/30">
+            Term Attendance: <span className="text-white font-black">{overallRate}%</span> (Min Req: 75%)
           </div>
         </div>
       </div>
 
       {/* ── 4 Key Performance Cards (Full-width grid) ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Card 1: Attendance Rate */}
         <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-card hover:shadow-card-hover transition-all duration-300">
           <div className="flex items-center justify-between pb-3">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
               Overall Rate
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-wine-50 text-wine-800 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-2xl bg-rose-50 text-rose-900 flex items-center justify-center font-bold">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
             <h3 className="text-3xl font-black text-slate-900 font-mono">{overallRate}%</h3>
-            <span className="text-xs font-extrabold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+            <span className="text-xs font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-300">
               On Track
             </span>
           </div>
-          <div className="mt-3 w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+          <div className="mt-3 w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
             <div
-              className="bg-gradient-to-r from-wine-700 to-amber-500 h-full rounded-full transition-all duration-500"
+              className="bg-gradient-to-r from-rose-900 to-amber-500 h-full rounded-full transition-all duration-500"
               style={{ width: `${overallRate}%` }}
             />
           </div>
@@ -264,13 +265,13 @@ export const StudentDashboard: React.FC = () => {
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
               Smart Pass ID
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
               <CreditCard className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
             <h3 className="text-2xl font-black text-slate-900 font-mono">8829-AF</h3>
-            <span className="text-xs font-extrabold text-wine-800 bg-wine-50 px-2 py-0.5 rounded-md border border-wine-200">
+            <span className="text-xs font-extrabold text-rose-900 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
               NFC Tap
             </span>
           </div>
@@ -289,7 +290,7 @@ export const StudentDashboard: React.FC = () => {
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
               Leaves & Absences
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-wine-50 text-wine-800 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-2xl bg-rose-50 text-rose-900 flex items-center justify-center">
               <Calendar className="w-4 h-4" />
             </div>
           </div>
@@ -314,13 +315,13 @@ export const StudentDashboard: React.FC = () => {
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
               Examination Eligibility
             </span>
-            <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
               <Award className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline space-x-2">
-            <h3 className="text-2xl font-black text-amber-600 font-mono">Eligible</h3>
-            <span className="text-xs font-bold text-wine-800 bg-wine-50 px-2 py-0.5 rounded-md border border-wine-200">
+            <h3 className="text-2xl font-black text-amber-700 font-mono">Eligible</h3>
+            <span className="text-xs font-bold text-rose-900 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
               Clear
             </span>
           </div>
@@ -339,17 +340,18 @@ export const StudentDashboard: React.FC = () => {
         {/* Left Column (8 cols): Enrolled Courses + Simulator + Attendance Log */}
         <div className="lg:col-span-8 space-y-8">
           {/* Section 1: Enrolled Courses & Attendance Breakdown */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
+          <div id="courses" className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-100">
               <div>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight">
-                  Enrolled Course Modules
+                <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                  <BookOpen className="w-5 h-5 text-rose-900" />
+                  <span>Enrolled Course Modules</span>
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Real-time biometric attendance tracking across all active courses
                 </p>
               </div>
-              <span className="self-start sm:self-auto text-xs font-extrabold px-3 py-1 rounded-xl bg-wine-50 text-wine-800 border border-wine-200">
+              <span className="self-start sm:self-auto text-xs font-extrabold px-3 py-1 rounded-xl bg-rose-50 text-rose-900 border border-rose-200">
                 4 Active Courses
               </span>
             </div>
@@ -358,11 +360,11 @@ export const StudentDashboard: React.FC = () => {
               {courses.map((course) => (
                 <div
                   key={course.code}
-                  className="p-4 sm:p-5 rounded-2xl border border-slate-200/70 bg-slate-50/50 hover:bg-white hover:border-wine-300 hover:shadow-card transition-all duration-200"
+                  className="p-4 sm:p-5 rounded-2xl border border-slate-200/70 bg-slate-50/50 hover:bg-white hover:border-rose-300 hover:shadow-card transition-all duration-200"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-xl bg-wine-800 text-white font-mono font-black text-xs flex items-center justify-center shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-rose-900 text-white font-mono font-black text-xs flex items-center justify-center shadow-xs">
                         {course.code}
                       </div>
                       <div>
@@ -384,7 +386,7 @@ export const StudentDashboard: React.FC = () => {
                           {course.attended}/{course.total} classes
                         </p>
                       </div>
-                      <span className="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-amber-50 text-amber-700 border border-amber-200">
+                      <span className="text-xs font-extrabold px-2.5 py-1 rounded-xl bg-amber-100 text-amber-900 border border-amber-300">
                         {course.status}
                       </span>
                     </div>
@@ -393,7 +395,7 @@ export const StudentDashboard: React.FC = () => {
                   {/* Progress Bar */}
                   <div className="mt-3 w-full bg-slate-200/70 h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-wine-700 to-amber-500 h-full rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-rose-900 to-amber-500 h-full rounded-full transition-all duration-300"
                       style={{ width: `${course.rate}%` }}
                     />
                   </div>
@@ -403,11 +405,12 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Section 2: Multimodal Verification Activity Log */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
+          <div id="logs" className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-card">
             <div className="flex items-center justify-between pb-5 border-b border-slate-100">
               <div>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight">
-                  Biometric Access & Verification Log
+                <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center space-x-2">
+                  <Fingerprint className="w-5 h-5 text-rose-900" />
+                  <span>Biometric Access & Verification Log</span>
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Live multimodal authentication events from classroom sensors
@@ -415,7 +418,7 @@ export const StudentDashboard: React.FC = () => {
               </div>
               <button
                 onClick={() => toast.success('Telemetry log refreshed')}
-                className="text-xs font-bold text-wine-800 hover:text-wine-900 hover:underline"
+                className="text-xs font-bold text-rose-900 hover:text-rose-950 hover:underline cursor-pointer"
               >
                 Refresh Log
               </button>
@@ -440,13 +443,13 @@ export const StudentDashboard: React.FC = () => {
                       </td>
                       <td className="py-3 px-3 font-bold text-slate-900">{log.course}</td>
                       <td className="py-3 px-3">
-                        <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-wine-50 text-wine-800 font-bold border border-wine-200/60">
+                        <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-900 font-bold border border-rose-200">
                           {log.method === 'Facial Recognition' ? (
-                            <Camera className="w-3 h-3 text-wine-700" />
+                            <Camera className="w-3.5 h-3.5 text-rose-800" />
                           ) : log.method === 'RFID Smart Tap' ? (
-                            <CreditCard className="w-3 h-3 text-wine-700" />
+                            <CreditCard className="w-3.5 h-3.5 text-rose-800" />
                           ) : (
-                            <Fingerprint className="w-3 h-3 text-wine-700" />
+                            <Fingerprint className="w-3.5 h-3.5 text-rose-800" />
                           )}
                           <span>{log.method}</span>
                         </span>
@@ -454,7 +457,7 @@ export const StudentDashboard: React.FC = () => {
                       <td className="py-3 px-3 text-slate-500 font-mono text-[11px]">
                         {log.terminal}
                       </td>
-                      <td className="py-3 px-3 text-right font-mono font-bold text-amber-600">
+                      <td className="py-3 px-3 text-right font-mono font-black text-amber-700">
                         {log.confidence}
                       </td>
                     </tr>
@@ -465,7 +468,7 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Section 3: Smart Attendance Predictor & Target Simulator */}
-          <div className="bg-gradient-to-br from-white to-amber-50/40 rounded-3xl p-6 sm:p-7 border border-amber-200/70 shadow-card">
+          <div className="bg-gradient-to-br from-white to-amber-50/50 rounded-3xl p-6 sm:p-7 border border-amber-200/80 shadow-card">
             <div className="flex items-center space-x-3 pb-4 border-b border-amber-200/50">
               <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/20">
                 <Calculator className="w-5 h-5" />
@@ -492,9 +495,9 @@ export const StudentDashboard: React.FC = () => {
                         key={num}
                         type="button"
                         onClick={() => setClassesToMiss(num)}
-                        className={`w-10 h-10 rounded-xl font-black text-sm transition-all ${
+                        className={`w-10 h-10 rounded-xl font-black text-sm transition-all cursor-pointer ${
                           classesToMiss === num
-                            ? 'bg-wine-800 text-white shadow-md shadow-wine-800/20 scale-105'
+                            ? 'bg-rose-900 text-white shadow-md shadow-rose-900/25 scale-105'
                             : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
                         }`}
                       >
@@ -504,18 +507,18 @@ export const StudentDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   Anticipating {classesToMiss} absence(s) across your registered courses will adjust
                   your overall attendance from{' '}
                   <span className="font-bold text-slate-900">{overallRate}%</span> to{' '}
-                  <span className="font-bold text-wine-800">{predictedRate}%</span>.
+                  <span className="font-black text-rose-900">{predictedRate}%</span>.
                 </p>
               </div>
 
               {/* Simulation Result Card */}
               <div className="bg-white rounded-2xl p-5 border border-amber-200 shadow-xs flex flex-col justify-between">
                 <div>
-                  <span className="text-[10px] font-black uppercase text-amber-700 tracking-wider">
+                  <span className="text-[10px] font-black uppercase text-amber-800 tracking-wider">
                     Simulated Projected Attendance
                   </span>
                   <div className="flex items-baseline space-x-2 mt-1">
@@ -525,7 +528,7 @@ export const StudentDashboard: React.FC = () => {
                     <span
                       className={`text-xs font-bold px-2 py-0.5 rounded-md ${
                         Number(predictedRate) >= 75
-                          ? 'bg-amber-100 text-amber-800'
+                          ? 'bg-amber-100 text-amber-900'
                           : 'bg-rose-100 text-rose-800'
                       }`}
                     >
@@ -546,25 +549,25 @@ export const StudentDashboard: React.FC = () => {
         {/* Right Column (4 cols): Smart Biometric Pass Card + Quick Tools */}
         <div className="lg:col-span-4 space-y-8">
           {/* ── Visual Biometric Student Smart Pass (RFID / NFC Digital Pass) ── */}
-          <div className="space-y-3">
+          <div id="pass" className="space-y-3">
             <div className="flex items-center justify-between px-1">
               <h3 className="text-sm font-black uppercase tracking-wider text-slate-700">
                 Digital Biometric Pass
               </h3>
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+              <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
                 Contactless NFC
               </span>
             </div>
 
             {/* Smart Pass Card Container */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wine-950 via-wine-900 to-wine-800 text-white p-6 shadow-2xl border border-wine-700/50">
+            <div className="wine-smart-card relative overflow-hidden rounded-3xl text-white p-6 shadow-2xl border border-rose-950/60">
               {/* Card visual elements */}
-              <div className="absolute top-0 right-0 -mr-10 -mt-10 w-44 h-44 rounded-full bg-amber-500/15 blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 -mr-10 -mt-10 w-44 h-44 rounded-full bg-amber-400/20 blur-2xl pointer-events-none" />
 
               {/* Card Header */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-400 text-wine-950 font-black flex items-center justify-center text-xs shadow-md">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-300 text-rose-950 font-black flex items-center justify-center text-xs shadow-md">
                     AI
                   </div>
                   <div>
@@ -576,16 +579,16 @@ export const StudentDashboard: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <Radio className="w-5 h-5 text-amber-400 animate-pulse" />
+                <Radio className="w-5 h-5 text-amber-300 animate-pulse" />
               </div>
 
               {/* Chip & NFC symbol */}
               <div className="mt-6 flex items-center justify-between">
-                <div className="w-10 h-7 rounded-md bg-gradient-to-tr from-amber-300 via-amber-200 to-amber-400 border border-amber-100/60 shadow-xs flex items-center justify-center">
-                  <div className="w-6 h-4 border border-amber-600/40 rounded-xs" />
+                <div className="w-11 h-8 rounded-md bg-gradient-to-tr from-amber-300 via-amber-200 to-amber-400 border border-amber-100/70 shadow-xs flex items-center justify-center">
+                  <div className="w-7 h-5 border border-amber-700/40 rounded-xs" />
                 </div>
                 <div className="text-right">
-                  <span className="text-[9px] font-mono uppercase text-amber-200 font-extrabold tracking-widest">
+                  <span className="text-[9px] font-mono uppercase text-amber-200 font-black tracking-widest">
                     NFC VERIFIED
                   </span>
                 </div>
@@ -593,28 +596,28 @@ export const StudentDashboard: React.FC = () => {
 
               {/* Student Details on Card */}
               <div className="mt-6">
-                <p className="text-[10px] text-wine-200 font-semibold uppercase tracking-wider">
+                <p className="text-[10px] text-rose-200 font-bold uppercase tracking-wider">
                   Student Holder
                 </p>
-                <h5 className="text-base font-black tracking-wide text-white">
+                <h5 className="text-lg font-black tracking-wide text-white">
                   {user?.name || 'Alex Johnson'}
                 </h5>
-                <p className="font-mono text-xs text-amber-300 tracking-wider mt-0.5">
+                <p className="font-mono text-xs text-amber-300 font-bold tracking-wider mt-0.5">
                   STU-2026-8829-AF
                 </p>
               </div>
 
               {/* Expiration and Status footer */}
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-wine-100">
+              <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between text-[11px] font-mono text-rose-100">
                 <div>
-                  <span className="text-[9px] block text-wine-300 font-sans uppercase">
+                  <span className="text-[9px] block text-rose-300 font-sans uppercase font-bold">
                     Validity
                   </span>
                   <span>EXP: 08/2030</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[9px] block text-wine-300 font-sans uppercase">Status</span>
-                  <span className="text-amber-400 font-extrabold uppercase">Active</span>
+                  <span className="text-[9px] block text-rose-300 font-sans uppercase font-bold">Status</span>
+                  <span className="text-amber-300 font-black uppercase">Active</span>
                 </div>
               </div>
             </div>
@@ -623,7 +626,7 @@ export const StudentDashboard: React.FC = () => {
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
                 onClick={() => setIsBiometricModalOpen(true)}
-                className="py-2.5 px-3 rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-wine-800 hover:border-wine-300 font-bold text-xs transition-all text-center cursor-pointer shadow-xs"
+                className="py-2.5 px-3 rounded-2xl bg-white border border-slate-200 text-slate-800 hover:text-rose-900 hover:border-rose-300 font-bold text-xs transition-all text-center cursor-pointer shadow-xs"
               >
                 Sync Biometrics
               </button>
@@ -631,7 +634,7 @@ export const StudentDashboard: React.FC = () => {
                 onClick={() =>
                   toast.success('Official Attendance Certificate downloaded as PDF!')
                 }
-                className="py-2.5 px-3 rounded-2xl bg-wine-800 hover:bg-wine-900 text-white font-bold text-xs transition-all text-center cursor-pointer shadow-sm shadow-wine-800/20"
+                className="btn-wine py-2.5 px-3 rounded-2xl text-white font-bold text-xs transition-all text-center cursor-pointer"
               >
                 Export Pass
               </button>
@@ -641,14 +644,14 @@ export const StudentDashboard: React.FC = () => {
           {/* Multimodal Hardware Status Widget */}
           <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-4">
             <h3 className="text-sm font-black text-slate-900 tracking-tight flex items-center space-x-2">
-              <ShieldCheck className="w-4 h-4 text-wine-800" />
+              <ShieldCheck className="w-4 h-4 text-rose-900" />
               <span>Registered Authentication Modes</span>
             </h3>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-xl bg-wine-100 text-wine-800 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
                     <Camera className="w-4 h-4" />
                   </div>
                   <div>
@@ -656,14 +659,14 @@ export const StudentDashboard: React.FC = () => {
                     <p className="text-[10px] text-slate-400 font-medium">128-d Vector Template</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
                   Enrolled
                 </span>
               </div>
 
               <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
                     <Fingerprint className="w-4 h-4" />
                   </div>
                   <div>
@@ -671,14 +674,14 @@ export const StudentDashboard: React.FC = () => {
                     <p className="text-[10px] text-slate-400 font-medium">Minutiae Map v2</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
                   Enrolled
                 </span>
               </div>
 
               <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-xl bg-wine-100 text-wine-800 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
                     <CreditCard className="w-4 h-4" />
                   </div>
                   <div>
@@ -686,7 +689,7 @@ export const StudentDashboard: React.FC = () => {
                     <p className="text-[10px] text-slate-400 font-medium">13.56 MHz High-Freq</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
                   Active
                 </span>
               </div>
@@ -700,7 +703,7 @@ export const StudentDashboard: React.FC = () => {
             </h3>
             <div className="space-y-2.5 text-xs">
               <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] font-bold text-amber-700 block">Today • Dr. Sarah Mitchell</span>
+                <span className="text-[10px] font-bold text-amber-800 block">Today • Dr. Sarah Mitchell</span>
                 <p className="text-slate-800 font-semibold mt-0.5">
                   Final Software Architecture review session will record attendance via multimodal gate.
                 </p>
@@ -722,7 +725,7 @@ export const StudentDashboard: React.FC = () => {
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 animate-pop-in">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-2xl bg-wine-100 text-wine-800 flex items-center justify-center font-bold">
+                <div className="w-9 h-9 rounded-2xl bg-rose-100 text-rose-900 flex items-center justify-center font-bold">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
@@ -732,7 +735,7 @@ export const StudentDashboard: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsLeaveModalOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -746,7 +749,7 @@ export const StudentDashboard: React.FC = () => {
                 <select
                   value={leaveSubject}
                   onChange={(e) => setLeaveSubject(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-wine-600"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
                 >
                   {courses.map((c) => (
                     <option key={c.code} value={c.name}>
@@ -765,7 +768,7 @@ export const StudentDashboard: React.FC = () => {
                   type="date"
                   value={leaveDate}
                   onChange={(e) => setLeaveDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-wine-600"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
                 />
               </div>
 
@@ -778,7 +781,7 @@ export const StudentDashboard: React.FC = () => {
                   value={leaveReason}
                   onChange={(e) => setLeaveReason(e.target.value)}
                   placeholder="e.g. Medical appointment, university event, or bereavement..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-wine-600"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-800"
                 />
               </div>
 
@@ -792,7 +795,7 @@ export const StudentDashboard: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-2xl bg-wine-800 hover:bg-wine-900 text-white text-xs font-black shadow-md shadow-wine-800/20 active:scale-95 cursor-pointer"
+                  className="btn-wine px-5 py-2.5 rounded-2xl text-white text-xs font-black active:scale-95 cursor-pointer"
                 >
                   Submit Leave Request
                 </button>
@@ -818,7 +821,7 @@ export const StudentDashboard: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsBiometricModalOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -829,9 +832,9 @@ export const StudentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedSensor('face')}
-                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all ${
+                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'face'
-                      ? 'border-wine-800 bg-wine-50 text-wine-900 shadow-2xs'
+                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-600'
                   }`}
                 >
@@ -842,9 +845,9 @@ export const StudentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedSensor('fingerprint')}
-                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all ${
+                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'fingerprint'
-                      ? 'border-wine-800 bg-wine-50 text-wine-900 shadow-2xs'
+                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-600'
                   }`}
                 >
@@ -855,9 +858,9 @@ export const StudentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedSensor('rfid')}
-                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all ${
+                  className={`p-3 rounded-2xl border flex flex-col items-center space-y-1.5 transition-all cursor-pointer ${
                     selectedSensor === 'rfid'
-                      ? 'border-wine-800 bg-wine-50 text-wine-900 shadow-2xs'
+                      ? 'border-rose-900 bg-rose-50 text-rose-950 shadow-2xs font-bold'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-600'
                   }`}
                 >
@@ -899,7 +902,7 @@ export const StudentDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsBiometricModalOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                  className="px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
                 >
                   Close
                 </button>
@@ -907,7 +910,7 @@ export const StudentDashboard: React.FC = () => {
                   type="button"
                   disabled={isAuthenticating}
                   onClick={handleSimulateAuthentication}
-                  className="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-black shadow-md shadow-amber-500/20 active:scale-95 disabled:opacity-50"
+                  className="btn-amber px-5 py-2.5 rounded-2xl text-white text-xs font-black disabled:opacity-50 cursor-pointer"
                 >
                   {isAuthenticating ? 'Authenticating...' : 'Authenticate Now'}
                 </button>
